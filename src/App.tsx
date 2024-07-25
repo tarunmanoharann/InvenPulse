@@ -1,8 +1,8 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import AdminRoutes from ''
-import UserRoutes from './routes/UserRoutes'
-import Login from '../src/components'
+// import AdminRoutes from './routes/AdminRoutes'
+// import UserRoutes from './routes/UserRoutes'
+import Login from './pages/Login'
 import Register from './pages/Register'
 
 const App: React.FC = () => {
@@ -11,8 +11,8 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/admin/*" element={<AdminRoutes />} />
-        <Route path="/*" element={<UserRoutes />} />
+        {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
+        {/* <Route path="/*" element={<UserRoutes />} /> */}
       </Routes>
     </div>
   )
