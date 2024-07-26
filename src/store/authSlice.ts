@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-interface User {
+export interface User {
   email: string
   role: 'user' | 'admin'
 }
 
-interface AuthState {
+export interface AuthState {
   user: User | null
   isLoading: boolean
   error: string | null
