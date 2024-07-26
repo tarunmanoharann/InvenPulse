@@ -1,10 +1,13 @@
-import { Routes, Route } from 'react-router-dom'
-import Layout from './components/Layouts'
-import LandingPage from './pages/LandingPage'
-import Login from './pages/Login'
-import Register from './pages/Register'
-import UserDashboard from './pages/UserDashboard'
-import AdminDashboard from './pages/AdminDashboard'
+// src/App.tsx
+
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layouts';
+import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import UserDashboard from './pages/UserDashboard';
+import AdminDashboard from './pages/AdminDashboard';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App = () => {
   return (
@@ -13,11 +16,19 @@ const App = () => {
         <Route index element={<LandingPage />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
-        <Route path="user-dashboard" element={<UserDashboard />} />
-        <Route path="admin-dashboard" element={<AdminDashboard />} />
+        <Route path="user-dashboard" element={
+          <ProtectedRoute allowedRole="user">
+            <UserDashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="admin-dashboard" element={
+          <ProtectedRoute allowedRole="admin">
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
       </Route>
     </Routes>
-  )
-}
+  );
+};
 
-export default App
+export default App;

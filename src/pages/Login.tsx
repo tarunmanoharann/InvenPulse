@@ -1,20 +1,32 @@
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { login } from '../store/authSlice'
-import { AppDispatch } from '../store/store'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { loginSuccess, User } from '../store/authSlice';
+import { AppDispatch } from '../store/store';
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const dispatch = useDispatch<AppDispatch>()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    dispatch(login({ email, password }))
-    navigate('/')
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const user: User = {
+        email,
+        role: email.includes('admin') ? 'admin' : 'user'
+      };
+      dispatch(loginSuccess(user));
+      if (user.role === 'admin') {
+        navigate('/admin-dashboard');
+      } else {
+        navigate('/user-dashboard');
+      }
+    } catch (error) {
+      console.error('Login failed:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -66,7 +78,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { register } from '../store/authSlice'
+import { loginSuccess, User } from '../store/authSlice'
 import { AppDispatch } from '../store/store'
 
 const Register = () => {
@@ -13,8 +13,12 @@ const Register = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    dispatch(register({ email, password, role: role as 'user' | 'admin' }))
-    navigate('/')
+    const user: User = {
+      email,
+      role: role as 'user' | 'admin'
+    }
+    dispatch(loginSuccess(user))
+    navigate(role === 'admin' ? '/admin-dashboard' : '/user-dashboard')
   }
 
   return (
