@@ -1,20 +1,22 @@
-import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-// import AdminRoutes from './routes/AdminRoutes'
-// import UserRoutes from './routes/UserRoutes'
+import Layout from './components/Layouts'
+import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import UserDashboard from './pages/UserDashboard'
+import AdminDashboard from './pages/AdminDashboard'
 
-const App: React.FC = () => {
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        {/* <Route path="/admin/*" element={<AdminRoutes />} /> */}
-        {/* <Route path="/*" element={<UserRoutes />} /> */}
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<LandingPage />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="user-dashboard" element={<UserDashboard />} />
+        <Route path="admin-dashboard" element={<AdminDashboard />} />
+      </Route>
+    </Routes>
   )
 }
 
