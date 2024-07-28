@@ -1,23 +1,94 @@
-import { useSelector } from 'react-redux'
-import { RootState } from '../store/store'
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { IconChevronRight, IconChevronLeft, IconHome, IconUser, IconSettings, IconLogout } from '@tabler/icons-react';
 
-const AdminDashboard = () => {
-  const { user } = useSelector((state: RootState) => state.auth)
-
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        <div className="px-4 py-6 sm:px-0">
-          <h2 className="text-2xl font-semibold text-gray-900">Admin Dashboard</h2>
-          <p className="mt-4 text-lg text-gray-700">Welcome, Admin {user?.email}</p>
-          <div className="mt-6 bg-white shadow px-4 py-5 sm:rounded-lg sm:p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">System Overview</h3>
-            {/* Add admin-specific components here */}
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+interface SidebarLinkProps {
+  icon: React.ReactNode;
+  label: string;
+  isActive: boolean;
+  isExpanded: boolean;
+  onClick: () => void;
 }
 
-export default AdminDashboard
+const SidebarLink: React.FC<SidebarLinkProps> = ({ icon, label, isActive, isExpanded, onClick }) => (
+  <motion.div
+    className={`flex items-center p-2 rounded-lg cursor-pointer ${
+      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
+    }`}
+    onClick={onClick}
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+  >
+    {icon}
+    {isExpanded && (
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className="ml-3"
+      >
+        {label}
+      </motion.span>
+    )}
+  </motion.div>
+);
+
+const Sidebar: React.FC = () => {
+  const [isExpanded, setIsExpanded] = useState(true);
+  const [activeLink, setActiveLink] = useState('Home');
+
+  const links = [
+    { icon: <IconHome size={24} />, label: 'Home' },
+    { icon: <IconUser size={24} />, label: 'Profile' },
+    { icon: <IconSettings size={24} />, label: 'Settings' },
+    { icon: <IconLogout size={24} />, label: 'Logout' },
+  ];
+
+  return (
+    <motion.div
+      className="bg-white h-screen shadow-lg"
+      initial={{ width: isExpanded ? 240 : 80 }}
+      animate={{ width: isExpanded ? 240 : 80 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="flex flex-col h-full">
+        <div className="flex items-center justify-between p-4">
+          {isExpanded && <h1 className="text-xl font-bold">My App</h1>}
+          <motion.button
+            onClick={() => setIsExpanded(!isExpanded)}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            {isExpanded ? <IconChevronLeft size={24} /> : <IconChevronRight size={24} />}
+          </motion.button>
+        </div>
+        <nav className="flex-1 overflow-y-auto">
+          {links.map((link) => (
+            <SidebarLink
+              key={link.label}
+              icon={link.icon}
+              label={link.label}
+              isActive={activeLink === link.label}
+              isExpanded={isExpanded}
+              onClick={() => setActiveLink(link.label)}
+            />
+          ))}
+        </nav>
+        <div className="p-4">
+          {isExpanded && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="text-sm text-gray-500"
+            >
+              © 2024 My App
+            </motion.div>
+          )}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export default Sidebar;
