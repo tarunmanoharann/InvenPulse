@@ -1,94 +1,175 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { IconChevronRight, IconChevronLeft, IconHome, IconUser, IconSettings, IconLogout } from '@tabler/icons-react';
+import { 
+  Home, 
+  Receipt, 
+  PiggyBank, 
+  LineChart, 
+  CreditCard, 
+  Banknote, 
+  Settings, 
+  LogOut
+} from 'lucide-react';
+
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface SidebarLinkProps {
   icon: React.ReactNode;
   label: string;
-  isActive: boolean;
-  isExpanded: boolean;
-  onClick: () => void;
+  isActive?: boolean;
 }
 
-const SidebarLink: React.FC<SidebarLinkProps> = ({ icon, label, isActive, isExpanded, onClick }) => (
-  <motion.div
-    className={`flex items-center p-2 rounded-lg cursor-pointer ${
-      isActive ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'
-    }`}
-    onClick={onClick}
-    whileHover={{ scale: 1.05 }}
-    whileTap={{ scale: 0.95 }}
+const SidebarLink: React.FC<SidebarLinkProps> = ({ icon, label, isActive }) => (
+  <Button 
+    className={`w-full justify-start ${isActive ? 'bg-gray-200' : ''}`}
+    variant="ghost"
   >
     {icon}
-    {isExpanded && (
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="ml-3"
-      >
-        {label}
-      </motion.span>
-    )}
-  </motion.div>
+    <span className="ml-2">{label}</span>
+  </Button>
 );
 
 const Sidebar: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(true);
-  const [activeLink, setActiveLink] = useState('Home');
-
-  const links = [
-    { icon: <IconHome size={24} />, label: 'Home' },
-    { icon: <IconUser size={24} />, label: 'Profile' },
-    { icon: <IconSettings size={24} />, label: 'Settings' },
-    { icon: <IconLogout size={24} />, label: 'Logout' },
+  const links: SidebarLinkProps[] = [
+    { icon: <Home size={20} />, label: 'Dashboard', isActive: true },
+    { icon: <Receipt size={20} />, label: 'Transactions' },
+    { icon: <PiggyBank size={20} />, label: 'Accounts' },
+    { icon: <LineChart size={20} />, label: 'Investments' },
+    { icon: <CreditCard size={20} />, label: 'Credit Cards' },
+    { icon: <Banknote size={20} />, label: 'Loans' },
+    { icon: <Settings size={20} />, label: 'Services' },
   ];
 
   return (
-    <motion.div
-      className="bg-white h-screen shadow-lg"
-      initial={{ width: isExpanded ? 240 : 80 }}
-      animate={{ width: isExpanded ? 240 : 80 }}
-      transition={{ duration: 0.3 }}
-    >
-      <div className="flex flex-col h-full">
-        <div className="flex items-center justify-between p-4">
-          {isExpanded && <h1 className="text-xl font-bold">My App</h1>}
-          <motion.button
-            onClick={() => setIsExpanded(!isExpanded)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-          >
-            {isExpanded ? <IconChevronLeft size={24} /> : <IconChevronRight size={24} />}
-          </motion.button>
-        </div>
-        <nav className="flex-1 overflow-y-auto">
-          {links.map((link) => (
-            <SidebarLink
-              key={link.label}
-              icon={link.icon}
-              label={link.label}
-              isActive={activeLink === link.label}
-              isExpanded={isExpanded}
-              onClick={() => setActiveLink(link.label)}
-            />
-          ))}
-        </nav>
-        <div className="p-4">
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="text-sm text-gray-500"
-            >
-              © 2024 My App
-            </motion.div>
-          )}
-        </div>
-      </div>
-    </motion.div>
+    <div className="w-64 bg-white h-screen p-4 flex flex-col">
+      <h1 className="text-2xl font-bold mb-6">InvenPulse.</h1>
+      <nav className="space-y-2 flex-1">
+        {links.map((link) => (
+          <SidebarLink key={link.label} {...link} />
+        ))}
+      </nav>
+      <Button variant="ghost" className="w-full justify-start">
+        <LogOut size={20} />
+        <span className="ml-2">Login</span>
+      </Button>
+    </div>
   );
 };
 
-export default Sidebar;
+const MyCards: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>My Cards</CardTitle>
+    </CardHeader>
+    <CardContent className="flex space-x-4">
+      <Card className="bg-indigo-600 text-white p-4 flex-1">
+        <div className="flex justify-between items-center mb-4">
+          <span>Balance</span>
+          <span>VISA</span>
+        </div>
+        <div className="text-2xl font-bold mb-4">$5,756</div>
+        <div className="flex justify-between items-center">
+          <span>3778 **** **** 1234</span>
+          <span>12/22</span>
+        </div>
+      </Card>
+      <Card className="bg-gray-800 text-white p-4 flex-1">
+        <div className="flex justify-between items-center mb-4">
+          <span>Balance</span>
+          <span>MASTERCARD</span>
+        </div>
+        <div className="text-2xl font-bold mb-4">$3,200</div>
+        <div className="flex justify-between items-center">
+          <span>1234 **** **** 5678</span>
+          <span>01/24</span>
+        </div>
+      </Card>
+    </CardContent>
+  </Card>
+);
+
+const RecentTransactions: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Recent Transactions</CardTitle>
+    </CardHeader>
+    <CardContent>
+    </CardContent>
+  </Card>
+);
+
+const WeeklyActivity: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Weekly Activity</CardTitle>
+    </CardHeader>
+    <CardContent>
+    </CardContent>
+  </Card>
+);
+
+const ExpenseStatistics: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Expense Statistics</CardTitle>
+    </CardHeader>
+    <CardContent>
+    </CardContent>
+  </Card>
+);
+
+const QuickTransfer: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Quick Transfer</CardTitle>
+    </CardHeader>
+    <CardContent>
+      <div className="flex space-x-4 mb-4">
+        <Avatar>
+          <AvatarImage src="/avatar1.jpg" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+        <Avatar>
+          <AvatarImage src="/avatar2.jpg" />
+          <AvatarFallback>LB</AvatarFallback>
+        </Avatar>
+        <Avatar>
+          <AvatarImage src="/avatar3.jpg" />
+          <AvatarFallback>RP</AvatarFallback>
+        </Avatar>
+      </div>
+      <Button className="w-full">Send</Button>
+    </CardContent>
+  </Card>
+);
+
+const BalanceHistory: React.FC = () => (
+  <Card>
+    <CardHeader>
+      <CardTitle>Balance History</CardTitle>
+    </CardHeader>
+    <CardContent>
+    </CardContent>
+  </Card>
+);
+
+const Dashboard: React.FC = () => (
+  <div className="flex">
+    <Sidebar />
+    <div className="flex-1 p-8">
+      <div className="grid grid-cols-2 gap-6">
+        <MyCards />
+        <RecentTransactions />
+        <WeeklyActivity />
+        <ExpenseStatistics />
+        <QuickTransfer />
+        <BalanceHistory />
+      </div>
+    </div>
+  </div>
+);
+
+export default Dashboard;

@@ -1,17 +1,24 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+
+import { BackgroundBeams } from "../components/ui/background-beams";
+
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col" >
       {/* Hero Section */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">Welcome to InvenPulse</h1>
-        <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Your inventory management solution</p>
-        <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition duration-300">
-          Get Started
-        </button>
+      <section className="flex-1 flex flex-col items-center justify-center text-center px-4 py-64 relative">
+        <BackgroundBeams className="opacity-30" />
+        <div className="z-10">
+          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">Welcome to InvenPulse</h1>
+          <p className="text-xl text-gray-700 dark:text-gray-300 mb-8">Your inventory management solution</p>
+          <button className="px-8 py-3 bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-primary-dark transition duration-300">
+            Get Started
+          </button>
+        </div>
       </section>
+
 
       {/* Animation Section */}
       <section className="py-16 bg-white dark:bg-gray-800">

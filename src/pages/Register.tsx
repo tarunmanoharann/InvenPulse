@@ -22,7 +22,7 @@ const Register = () => {
   }
 
   return (
-    <div className="min-h-screen w-full bg-background-light dark:bg-background-dark flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen w-full bg-background-light dark:bg-background-dark flex flex-col py-28 px-4 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-text-light dark:text-text-dark">Register for InvenPulse</h2>
       </div>
