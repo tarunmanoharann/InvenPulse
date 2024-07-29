@@ -6,7 +6,6 @@ import Register from './pages/Register';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
-import Footer from './components/Footer';
 
 const App = () => {
   return (
@@ -28,7 +27,6 @@ const App = () => {
           } />
         </Route>
       </Routes>
-      <Footer />
     </>
   );
 };

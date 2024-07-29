@@ -133,7 +133,7 @@ const Layout = () => {
                   to={user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard'}
                   className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium`}
                 >
-                  {user.role === 'admin' ? 'Admin Dashboard' : 'Dashboard'}
+                  {user.role === 'admin' ? 'Admin Dashboard' : 'User Dashboard'}
                 </Link>
                 <button
                   onClick={handleLogout}
