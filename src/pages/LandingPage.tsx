@@ -17,32 +17,40 @@ const HeroAnimation: React.FC = () => {
     renderer.setPixelRatio(window.devicePixelRatio);
     mountRef.current.appendChild(renderer.domElement);
 
-    const gridHelper = new THREE.GridHelper(100, 100, 0x888888, 0x444444);
+    const gridHelper = new THREE.GridHelper(100, 20, 0x888888, 0x444444);
     scene.add(gridHelper);
 
     const packages: THREE.Group[] = [];
-    const packageGeometry = new THREE.BoxGeometry(1, 0.6, 0.8);
+    const packageGeometry = new THREE.BoxGeometry(1.5, 1.2, 1.5);
     const packageMaterials = [
       new THREE.MeshPhongMaterial({ color: 0xD3D3D3 }),
       new THREE.MeshPhongMaterial({ color: 0xA9A9A9 }),
       new THREE.MeshPhongMaterial({ color: 0x6945C9 }),
     ];
 
+    const lidGeometry = new THREE.BoxGeometry(1.5, 0.2, 1.5);
+
     for (let i = 0; i < 100; i++) {
       const packageGroup = new THREE.Group();
       const packageMesh = new THREE.Mesh(packageGeometry, packageMaterials[Math.floor(Math.random() * packageMaterials.length)]);
       packageGroup.add(packageMesh);
 
+      const lidMesh = new THREE.Mesh(lidGeometry, packageMaterials[Math.floor(Math.random() * packageMaterials.length)]);
+      lidMesh.position.y = 0.7;
+      lidMesh.rotation.x = Math.random() * Math.PI / 4;
+      packageGroup.add(lidMesh);
+
       const edgesGeometry = new THREE.EdgesGeometry(packageGeometry);
-      const edgesMaterial = new THREE.LineBasicMaterial({ color: 0x000000 });
+      const edgesMaterial = new THREE.LineBasicMaterial({ color: 0xFFFFFF });
       const edges = new THREE.LineSegments(edgesGeometry, edgesMaterial);
       packageGroup.add(edges);
 
       packageGroup.position.set(
         (Math.random() - 0.5) * 50,
-        Math.random() * 10,
+        Math.random() * 50 + 20,
         (Math.random() - 0.5) * 50
       );
+      packageGroup.userData = { lifespan: Math.random() * 5 + 5 };
       scene.add(packageGroup);
       packages.push(packageGroup);
     }
@@ -61,8 +69,21 @@ const HeroAnimation: React.FC = () => {
       requestAnimationFrame(animate);
 
       packages.forEach((pkg) => {
-        pkg.rotation.y += 0.002;
-        pkg.position.y = Math.abs(Math.sin(Date.now() * 0.0005 + pkg.position.x + pkg.position.z) * 1.5) + 0.5;
+        if (pkg.position.y > 0) {
+          pkg.position.y -= 0.1;
+          pkg.rotation.x += 0.01;
+          pkg.rotation.y += 0.01;
+        } else {
+          pkg.userData.lifespan -= 0.016;
+          if (pkg.userData.lifespan <= 0) {
+            pkg.position.y = Math.random() * 50 + 20;
+            pkg.position.x = (Math.random() - 0.5) * 50;
+            pkg.position.z = (Math.random() - 0.5) * 50;
+            pkg.userData.lifespan = Math.random() * 5 + 5;
+          }
+        }
+
+        pkg.children[1].rotation.x = Math.sin(Date.now() * 0.001 + pkg.position.x + pkg.position.z) * Math.PI / 8;
       });
 
       const time = Date.now() * 0.0002;
@@ -89,7 +110,7 @@ const HeroAnimation: React.FC = () => {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0" />;
+  return <div ref={mountRef} className="absolute inset-0 z-0 overflow-hidden" />;
 };
 
 interface AnimatedSectionProps {
@@ -163,16 +184,40 @@ const LandingPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
-      <AnimatedSection className="relative h-screen flex flex-col items-center justify-center text-center px-4">
+      <div className="relative h-screen flex flex-col items-center justify-center text-center px-4 overflow-hidden">
         <HeroAnimation />
-        <div className="z-10 bg-black bg-opacity-50 p-8 rounded-lg">
-          <h1 className="text-6xl font-bold text-white mb-6">Welcome to InvenPulse</h1>
-          <p className="text-2xl text-gray-300 mb-8">Your Inventory Solution, Perfected for the Future</p>
-          <button className="px-8 py-3 bg-6945C9 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="z-10 bg-black bg-opacity-50 p-8 rounded-lg"
+        >
+          <motion.h1 
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="text-6xl font-bold text-white mb-6"
+          >
+            Welcome to InvenPulse
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="text-2xl text-gray-300 mb-8"
+          >
+            Your Inventory Solution, Perfected for the Future
+          </motion.p>
+          <motion.button 
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
+            className="px-8 py-3 bg-6945C9 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300"
+          >
             Get Started
-          </button>
-        </div>
-      </AnimatedSection>
+          </motion.button>
+        </motion.div>
+      </div>
 
       <AnimatedSection className="py-16 bg-white dark:bg-gray-800">
         <div className="container mx-auto px-4">
