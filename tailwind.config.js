@@ -1,10 +1,8 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
- 
 const colors = require("tailwindcss/colors");
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
-
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -26,6 +24,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        customPurple: '#774EE0',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,28 +80,41 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        rotate: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        stackLogo: {
+          '0%': { transform: 'translateY(0.3px)', opacity: '0.9' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+        
       },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        'stack-1': 'stackLogo 1s ease-out 0s infinite',
+        'stack-2': 'stackLogo 1s ease-out 1s infinite',
+        'stack-3': 'stackLogo 1s ease-out 2s infinite',
+        'theme-switch': 'rotate 0.8s ease-in-out, fadeIn 0.7s ease-in-out',
       },
     },
   },
   plugins: [require("tailwindcss-animate"), addVariablesForColors],
-
-
-
 };
-
 
 function addVariablesForColors({ addBase, theme }) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
- 
+
   addBase({
     ":root": newVars,
   });
 }
-

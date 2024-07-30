@@ -11,26 +11,26 @@ const HeroAnimation: React.FC = () => {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     mountRef.current.appendChild(renderer.domElement);
 
-    const gridHelper = new THREE.GridHelper(100, 20, 0x888888, 0x444444);
+    const gridHelper = new THREE.GridHelper(100, 15, 0x888888, 0x444444);
     scene.add(gridHelper);
 
     const packages: THREE.Group[] = [];
-    const packageGeometry = new THREE.BoxGeometry(1.5, 1.2, 1.5);
+    const packageGeometry = new THREE.BoxGeometry(2.25, 1.8, 2.25, 2, 2, 2);
     const packageMaterials = [
       new THREE.MeshPhongMaterial({ color: 0xD3D3D3 }),
       new THREE.MeshPhongMaterial({ color: 0xA9A9A9 }),
       new THREE.MeshPhongMaterial({ color: 0x6945C9 }),
     ];
 
-    const lidGeometry = new THREE.BoxGeometry(1.5, 0.2, 1.5);
+    const lidGeometry = new THREE.BoxGeometry(2.25, 0.3, 2.25, 2, 2, 2);
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 80; i++) {
       const packageGroup = new THREE.Group();
       const packageMesh = new THREE.Mesh(packageGeometry, packageMaterials[Math.floor(Math.random() * packageMaterials.length)]);
       packageGroup.add(packageMesh);
@@ -65,16 +65,18 @@ const HeroAnimation: React.FC = () => {
     camera.position.set(0, 15, 30);
     camera.lookAt(0, 0, 0);
 
+    const clock = new THREE.Clock();
+
     const animate = () => {
-      requestAnimationFrame(animate);
+      const delta = clock.getDelta();
 
       packages.forEach((pkg) => {
         if (pkg.position.y > 0) {
-          pkg.position.y -= 0.1;
-          pkg.rotation.x += 0.01;
-          pkg.rotation.y += 0.01;
+          pkg.position.y -= 0.1 * delta * 60;
+          pkg.rotation.x += 0.005 * delta * 60;
+          pkg.rotation.y += 0.005 * delta * 60;
         } else {
-          pkg.userData.lifespan -= 0.016;
+          pkg.userData.lifespan -= delta;
           if (pkg.userData.lifespan <= 0) {
             pkg.position.y = Math.random() * 50 + 20;
             pkg.position.x = (Math.random() - 0.5) * 50;
@@ -83,7 +85,7 @@ const HeroAnimation: React.FC = () => {
           }
         }
 
-        pkg.children[1].rotation.x = Math.sin(Date.now() * 0.001 + pkg.position.x + pkg.position.z) * Math.PI / 8;
+        pkg.children[1].rotation.x = Math.sin(Date.now() * 0.0005 + pkg.position.x + pkg.position.z) * Math.PI / 16;
       });
 
       const time = Date.now() * 0.0002;
@@ -92,6 +94,7 @@ const HeroAnimation: React.FC = () => {
       camera.lookAt(0, 0, 0);
 
       renderer.render(scene, camera);
+      requestAnimationFrame(animate);
     };
 
     animate();
@@ -110,7 +113,11 @@ const HeroAnimation: React.FC = () => {
     };
   }, []);
 
-  return <div ref={mountRef} className="absolute inset-0 z-0 overflow-hidden" />;
+  return (
+    <div ref={mountRef} className="absolute inset-0 z-0 overflow-hidden">
+      <div className="absolute inset-0 bg-black opacity-30"></div>
+    </div>
+  );
 };
 
 interface AnimatedSectionProps {
@@ -159,18 +166,18 @@ interface Testimonial {
 
 const LandingPage: React.FC = () => {
   const features: Feature[] = [
-    { title: 'Real-time Tracking', description: 'Monitor your inventory levels in real-time, ensuring you never run out of stock.', icon: '📊' },
-    { title: 'Advanced Analytics', description: 'Gain valuable insights into your inventory trends and make data-driven decisions.', icon: '📈' },
-    { title: 'Seamless Integration', description: 'Easily integrate with your existing systems for a smooth workflow.', icon: '🔗' },
-    { title: 'Automated Reordering', description: 'Set up automated reordering to maintain optimal stock levels.', icon: '🔄' },
-    { title: 'Multi-location Support', description: 'Manage inventory across multiple locations from a single dashboard.', icon: '🌐' },
-    { title: 'Mobile Access', description: 'Access your inventory data on-the-go with our mobile app.', icon: '📱' },
+    { title: 'Real-time Tracking', description: 'Monitor inventory levels across multiple locations in real-time, with customizable alerts for low stock.', icon: '📊' },
+    { title: 'Predictive Analytics', description: 'Leverage AI-powered forecasting to optimize stock levels and reduce carrying costs.', icon: '🧠' },
+    { title: 'Seamless Integration', description: 'Connect with your existing ERP, e-commerce, and POS systems for a unified workflow.', icon: '🔗' },
+    { title: 'Automated Procurement', description: 'Set up intelligent reordering rules based on demand forecasts and lead times.', icon: '🔄' },
+    { title: 'Multi-channel Management', description: 'Synchronize inventory across all sales channels, from brick-and-mortar to online marketplaces.', icon: '🌐' },
+    { title: 'Mobile Accessibility', description: 'Manage your inventory on-the-go with our powerful mobile app, available for iOS and Android.', icon: '📱' },
   ];
 
   const testimonials: Testimonial[] = [
-    { name: 'John Doe', company: 'Tech Co.', text: 'InvenPulse revolutionized our inventory management process.', avatar: 'https://i.pravatar.cc/150?img=1' },
-    { name: 'Jane Smith', company: 'Retail Inc.', text: "We've seen a 30% increase in efficiency since implementing InvenPulse.", avatar: 'https://i.pravatar.cc/150?img=2' },
-    { name: 'Mike Johnson', company: 'Logistics Ltd.', text: 'The real-time tracking feature has been a game-changer for our business.', avatar: 'https://i.pravatar.cc/150?img=3' },
+    { name: 'Sarah Johnson', company: 'TechNova Solutions', text: 'InvenPulse has transformed our supply chain management. The predictive analytics feature alone has saved us thousands in carrying costs.', avatar: 'https://i.pravatar.cc/150?img=1' },
+    { name: 'Michael Chang', company: 'Global Retail Corp', text: "Since implementing InvenPulse, our stockouts have decreased by 35% and our inventory turnover has improved significantly. It's been a game-changer for our operations.", avatar: 'https://i.pravatar.cc/150?img=2' },
+    { name: 'Emily Rodriguez', company: 'Eco Logistics', text: 'The multi-channel management feature of InvenPulse has streamlined our entire fulfillment process. We now have a single source of truth for our inventory across all platforms.', avatar: 'https://i.pravatar.cc/150?img=3' },
   ];
 
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -190,7 +197,7 @@ const LandingPage: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="z-10 bg-black bg-opacity-50 p-8 rounded-lg"
+          className="z-10 bg-black bg-opacity-70 p-14 rounded-lg"
         >
           <motion.h1 
             initial={{ opacity: 0, x: -50 }}
@@ -206,22 +213,22 @@ const LandingPage: React.FC = () => {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="text-2xl text-gray-300 mb-8"
           >
-            Your Inventory Solution, Perfected for the Future
+            Revolutionize Your Inventory Management
           </motion.p>
           <motion.button 
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            className="px-8 py-3 bg-6945C9 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300"
+            className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300"
           >
-            Get Started
+           Get Started
           </motion.button>
         </motion.div>
       </div>
 
       <AnimatedSection className="py-16 bg-white dark:bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Why Choose InvenPulse?</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Optimize Your Supply Chain</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
@@ -242,7 +249,7 @@ const LandingPage: React.FC = () => {
 
       <AnimatedSection className="py-16 bg-gray-200 dark:bg-gray-900">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">What Our Clients Say</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Success Stories</h2>
           <div className="max-w-3xl mx-auto">
             <motion.div
               key={currentTestimonial}
@@ -266,41 +273,43 @@ const LandingPage: React.FC = () => {
       </AnimatedSection>
 
       <AnimatedSection className="py-16 bg-gray-100 dark:bg-gray-800">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Pricing Plans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {['Basic', 'Pro', 'Enterprise'].map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.3, duration: 0.8 }}
-                className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md text-center"
-              >
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{plan}</h3>
-                <p className="text-4xl font-bold text-6945C9 mb-6">${(index + 1) * 49}<span className="text-sm text-gray-600 dark:text-gray-400">/mo</span></p>
-                <ul className="text-left mb-8">
-                  <li className="mb-2">✅ Feature 1</li>
-                  <li className="mb-2">✅ Feature 2</li>
-                  <li className="mb-2">✅ Feature 3</li>
-                  {index > 0 && <li className="mb-2">✅ Feature 4</li>}
-                  {index > 1 && <li className="mb-2">✅ Feature 5</li>}
-                </ul>
-                <button className="w-full px-6 py-3 bg-6945C9 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300">
-                  Choose Plan
-                </button>
-              </motion.div>
-            ))}
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Flexible Pricing Plans</h2>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {['Startup', 'Business', 'Enterprise'].map((plan, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.3, duration: 0.8 }}
+          className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md text-center flex flex-col h-full"
+        >
+          <div className="flex-grow">
+            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{plan}</h3>
+            <p className="text-4xl font-bold text-6945C9 mb-6">${(index + 1) * 99}<span className="text-sm text-gray-600 dark:text-gray-400">/mo</span></p>
+            <ul className="text-left mb-8">
+              <li className="mb-2">✅ Real-time Tracking</li>
+              <li className="mb-2">✅ Multi-channel Management</li>
+              <li className="mb-2">✅ Mobile App Access</li>
+              {index > 0 && <li className="mb-2">✅ Advanced Analytics</li>}
+              {index > 1 && <li className="mb-2">✅ Dedicated Account Manager</li>}
+            </ul>
           </div>
-        </div>
-      </AnimatedSection>
+          <button className="w-full px-6 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300 mt-auto">
+            Choose Plan
+          </button>
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</AnimatedSection>
 
-      <AnimatedSection className="py-16 bg-6945C9">
+      <AnimatedSection className="py-16 bg-slate-50">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">Ready to Optimize Your Inventory?</h2>
-          <p className="text-xl text-white mb-8">Join thousands of businesses already using InvenPulse to streamline their operations.</p>
-          <button className="px-8 py-3 bg-white text-6945C9 font-semibold rounded-lg shadow-md hover:bg-gray-100 transition duration-300">
-            Start Your Free Trial
+          <h2 className="text-4xl font-bold text-black mb-6">Ready to Transform Your Inventory Management?</h2>
+          <p className="text-xl text-black mb-8">Join thousands of businesses already optimizing their operations with InvenPulse.</p>
+          <button className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md  transition duration-300">
+            Start Your 30-Day Free Trial
           </button>
         </div>
       </AnimatedSection>
