@@ -29,37 +29,69 @@ const Layout = () => {
       <nav className={`${isDarkMode ? 'dark:bg-gray-900' : 'bg-white'} shadow`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="text-2xl font-bold text-primary">
-  <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path 
-      className="transform translate-y-1 opacity-0 animate-stack-1" 
-      d="M2 17L12 22L22 17" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-    <path 
-      className="transform translate-y-1 opacity-0 animate-stack-2" 
-      d="M2 12L12 17L22 12" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-    <path 
-      className="transform translate-y-1 opacity-0 animate-stack-3" 
-      d="M12 2L2 7L12 12L22 7L12 2Z" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
-      strokeLinejoin="round"
-    />
-  </svg>
-  InvenPulse
-</Link>
-            </div>
+          <div className="flex-shrink-0 flex items-center">
+  {!user ? (
+    <Link to="/" className="text-2xl font-bold text-primary">
+      <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-1" 
+          d="M2 17L12 22L22 17" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-2" 
+          d="M2 12L12 17L22 12" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-3" 
+          d="M12 2L2 7L12 12L22 7L12 2Z" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+      </svg>
+      InvenPulse
+    </Link>
+  ) : (
+    <div className="text-2xl font-bold text-primary">
+      <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-1" 
+          d="M2 17L12 22L22 17" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-2" 
+          d="M2 12L12 17L22 12" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+        <path 
+          className="transform translate-y-1 opacity-0 animate-stack-3" 
+          d="M12 2L2 7L12 12L22 7L12 2Z" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        />
+      </svg>
+      InvenPulse
+    </div>
+  )}
+</div>
 
             <button
   onClick={toggleTheme}
