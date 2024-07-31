@@ -1,6 +1,7 @@
 import React, { useRef, ReactNode, useEffect, useState } from 'react';
 import { motion, useInView, useAnimationControls } from 'framer-motion';
 import * as THREE from 'three';
+import {Link} from 'react-router-dom';
 import Footer from '@/components/Footer';
 
 const HeroAnimation: React.FC = () => {
@@ -215,14 +216,15 @@ const LandingPage: React.FC = () => {
           >
             Revolutionize Your Inventory Management
           </motion.p>
-          <motion.button 
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 1.5 }}
-            className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300"
-          >
-           Get Started
-          </motion.button>
+          <Link to="/register">
+            <motion.button 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-customPurple hover:bg-purple-700 text-white font-semibold py-2 px-6 rounded-lg shadow-lg"
+            >
+              Get Started
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
 

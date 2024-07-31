@@ -1,23 +1,17 @@
 import { Outlet, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../store/store';
-import { logout } from '../store/authSlice';
 import { useState } from 'react';
 import { IconSun, IconMoon } from '@tabler/icons-react';
 
 const Layout = () => {
   const { user } = useSelector((state: RootState) => state.auth);
-  const dispatch = useDispatch();
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
     document.documentElement.classList.toggle('dark');
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
   };
 
   const toggleMobileMenu = () => {
@@ -29,89 +23,89 @@ const Layout = () => {
       <nav className={`${isDarkMode ? 'dark:bg-gray-900' : 'bg-white'} shadow`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-          <div className="flex-shrink-0 flex items-center">
-  {!user ? (
-    <Link to="/" className="text-2xl font-bold text-primary">
-      <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-1" 
-          d="M2 17L12 22L22 17" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-2" 
-          d="M2 12L12 17L22 12" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-3" 
-          d="M12 2L2 7L12 12L22 7L12 2Z" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-      </svg>
-      InvenPulse
-    </Link>
-  ) : (
-    <div className="text-2xl font-bold text-primary">
-      <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-1" 
-          d="M2 17L12 22L22 17" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-2" 
-          d="M2 12L12 17L22 12" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-        <path 
-          className="transform translate-y-1 opacity-0 animate-stack-3" 
-          d="M12 2L2 7L12 12L22 7L12 2Z" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
-          strokeLinejoin="round"
-        />
-      </svg>
-      InvenPulse
-    </div>
-  )}
-</div>
+            <div className="flex-shrink-0 flex items-center">
+              {!user ? (
+                <Link to="/" className="text-2xl font-bold text-primary">
+                  <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-1" 
+                      d="M2 17L12 22L22 17" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-2" 
+                      d="M2 12L12 17L22 12" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-3" 
+                      d="M12 2L2 7L12 12L22 7L12 2Z" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  InvenPulse
+                </Link>
+              ) : (
+                <div className="text-2xl font-bold text-primary">
+                  <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-1" 
+                      d="M2 17L12 22L22 17" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-2" 
+                      d="M2 12L12 17L22 12" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                    <path 
+                      className="transform translate-y-1 opacity-0 animate-stack-3" 
+                      d="M12 2L2 7L12 12L22 7L12 2Z" 
+                      stroke="currentColor" 
+                      strokeWidth="2" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  InvenPulse
+                </div>
+              )}
+            </div>
 
             <button
-  onClick={toggleTheme}
-  className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-2 focus:outline-none transition-all duration-300 ease-in-out"
->
-  <div className="relative w-6 h-6">
-    <IconSun
-      size={24}
-      className={`absolute top-0 left-0 transition-all duration-300 ease-in-out ${
-        isDarkMode ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
-      }`}
-    />
-    <IconMoon
-      size={24}
-      className={`absolute top-0 left-0 transition-all duration-300 ease-in-out ${
-        isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
-      }`}
-    />
-  </div>
-</button>
+              onClick={toggleTheme}
+              className="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-2 focus:outline-none transition-all duration-300 ease-in-out"
+            >
+              <div className="relative w-6 h-6">
+                <IconSun
+                  size={24}
+                  className={`absolute top-0 left-0 transition-all duration-300 ease-in-out ${
+                    isDarkMode ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'
+                  }`}
+                />
+                <IconMoon
+                  size={24}
+                  className={`absolute top-0 left-0 transition-all duration-300 ease-in-out ${
+                    isDarkMode ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'
+                  }`}
+                />
+              </div>
+            </button>
 
             <div className="hidden sm:flex sm:items-center sm:ml-6">
               {!user ? (
@@ -137,12 +131,6 @@ const Layout = () => {
                   >
                     {user.role === 'admin' ? 'Admin Dashboard' : 'Dashboard'}
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Logout
-                  </button>
                 </div>
               )}
             </div>
@@ -201,12 +189,6 @@ const Layout = () => {
                 >
                   {user.role === 'admin' ? 'Admin Dashboard' : 'User Dashboard'}
                 </Link>
-                <button
-                  onClick={handleLogout}
-                  className="w-full text-left bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Logout
-                </button>
               </>
             )}
           </div>
@@ -214,7 +196,7 @@ const Layout = () => {
       </nav>
 
       <main>
-          <Outlet />
+        <Outlet />
       </main>
     </div>
   );
