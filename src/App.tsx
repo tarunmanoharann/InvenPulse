@@ -20,7 +20,7 @@ const App = () => {
               <UserDashboard />
             </ProtectedRoute>
           } />
-          <Route path="admin-dashboard" element={
+          <Route path="admin-dashboard/*" element={
             <ProtectedRoute allowedRole="admin">
               <AdminDashboard />
             </ProtectedRoute>
