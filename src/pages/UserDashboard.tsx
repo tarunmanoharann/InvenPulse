@@ -1,15 +1,15 @@
 // UserDashboard.tsx
 import React from 'react';
 import { Route, Routes, Outlet } from 'react-router-dom';
-import Sidebar from './user/Sidebar';
-import Dashboard from './user/Dashboard';
-import InventoryList from './user/InventoryList';
-import SearchProducts from './user/SearchProducts';
-import Orders from './user/Orders';
-import Reports from './user/Reports';
-import Notifications from './user/Notifications';
-import UserProfile from './user/UserProfile';
-import HelpSupport from './user/HelpSupport';
+import Sidebar from '../components/user/Sidebar';
+import Dashboard from '../components/user/Dashboard';
+import InventoryList from '../components/user/InventoryList';
+// import SearchProducts from './user/SearchProducts';
+// import Orders from './user/Orders';
+// import Reports from './user/Reports';
+// import Notifications from './user/Notifications';
+// import UserProfile from './user/UserProfile';
+// import HelpSupport from './user/HelpSupport';
 import { ThemeProvider } from "next-themes";
 
 const UserLayout = () => {
@@ -30,12 +30,12 @@ const UserDashboard: React.FC = () => {
         <Route element={<UserLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="inventory" element={<InventoryList />} />
-          <Route path="search" element={<SearchProducts />} />
-          <Route path="orders" element={<Orders />} />
-          <Route path="reports" element={<Reports />} />
-          <Route path="notifications" element={<Notifications />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="help" element={<HelpSupport />} />
+          {/* <Route path="search" element={<SearchProducts />} /> */}
+          {/* <Route path="orders" element={<Orders />} /> */}
+          {/* <Route path="reports" element={<Reports />} /> */}
+          {/* <Route path="notifications" element={<Notifications />} /> */}
+          {/* <Route path="profile" element={<UserProfile />} /> */}
+          {/* <Route path="help" element={<HelpSupport />} /> */}
         </Route>
       </Routes>
     </ThemeProvider>
