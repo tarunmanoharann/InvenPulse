@@ -8,7 +8,7 @@ import SearchProducts from '../components/user/SearchProducts';
 // import Orders from './user/Orders';
 // import Reports from './user/Reports';
 // import Notifications from './user/Notifications';
-// import UserProfile from './user/UserProfile';
+import UserProfile from '../components/user/UserProfile';
 // import HelpSupport from './user/HelpSupport';
 import { ThemeProvider } from "next-themes";
 
@@ -34,7 +34,7 @@ const UserDashboard: React.FC = () => {
           {/* <Route path="orders" element={<Orders />} /> */}
           {/* <Route path="reports" element={<Reports />} /> */}
           {/* <Route path="notifications" element={<Notifications />} /> */}
-          {/* <Route path="profile" element={<UserProfile />} /> */}
+          <Route path="profile" element={<UserProfile />} />
           {/* <Route path="help" element={<HelpSupport />} /> */}
         </Route>
       </Routes>
