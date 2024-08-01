@@ -5,7 +5,7 @@ import Sidebar from '../components/user/Sidebar';
 import Dashboard from '../components/user/Dashboard';
 import InventoryList from '../components/user/InventoryList';
 import SearchProducts from '../components/user/SearchProducts';
-// import Orders from './user/Orders';
+import Orders from '../components/user/Orders';
 // import Reports from './user/Reports';
 // import Notifications from './user/Notifications';
 import UserProfile from '../components/user/UserProfile';
@@ -31,7 +31,7 @@ const UserDashboard: React.FC = () => {
           <Route index element={<Dashboard />} />
           <Route path="inventory" element={<InventoryList />} />
           <Route path="search" element={<SearchProducts />} />
-          {/* <Route path="orders" element={<Orders />} /> */}
+          <Route path="orders" element={<Orders />} />
           {/* <Route path="reports" element={<Reports />} /> */}
           {/* <Route path="notifications" element={<Notifications />} /> */}
           <Route path="profile" element={<UserProfile />} />
