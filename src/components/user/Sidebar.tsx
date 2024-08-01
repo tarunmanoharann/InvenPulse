@@ -1,45 +1,86 @@
-// user/Sidebar.tsx
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Package, Search, ShoppingCart, BarChart, Bell, User, HelpCircle } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Package,
+  Search,
+  ShoppingCart,
+  BarChart,
+  Bell,
+  User,
+  HelpCircle,
+  LogOut
+} from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/authSlice';
 
-const Sidebar: React.FC = () => {
-  const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
-    { name: 'Inventory', icon: Package, path: '/inventory' },
-    { name: 'Search Products', icon: Search, path: '/search' },
-    { name: 'Orders', icon: ShoppingCart, path: '/orders' },
-    { name: 'Reports', icon: BarChart, path: '/reports' },
-    { name: 'Notifications', icon: Bell, path: '/notifications' },
-    { name: 'Profile', icon: User, path: '/profile' },
-    { name: 'Help & Support', icon: HelpCircle, path: '/help' },
-  ];
+interface SidebarLinkProps {
+  icon: React.ElementType;
+  label: string;
+  to: string;
+}
+
+const SidebarLink: React.FC<SidebarLinkProps> = ({ icon: Icon, label, to }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isActive = location.pathname === to;
 
   return (
-    <aside className="w-64 bg-card text-card-foreground p-4 shadow-lg">
+    <Button
+      className={`w-full justify-start ${
+        isActive 
+          ? 'bg-primary text-primary-foreground' 
+          : 'hover:bg-primary/10 hover:text-primary'
+      }`}
+      variant={isActive ? "default" : "ghost"}
+      onClick={() => navigate(to)}
+    >
+      <Icon size={20} />
+      <span className="ml-2">{label}</span>
+    </Button>
+  );
+};
+
+const Sidebar: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const links: SidebarLinkProps[] = [
+    { icon: LayoutDashboard, label: 'Dashboard', to: '/user-dashboard' },
+    { icon: Package, label: 'Inventory', to: '/user-dashboard/inventory' },
+    { icon: Search, label: 'Search Products', to: '/user-dashboard/search' },
+    { icon: ShoppingCart, label: 'Orders', to: '/user-dashboard/orders' },
+    { icon: BarChart, label: 'Reports', to: '/user-dashboard/reports' },
+    { icon: Bell, label: 'Notifications', to: '/user-dashboard/notifications' },
+    { icon: User, label: 'Profile', to: '/user-dashboard/profile' },
+    { icon: HelpCircle, label: 'Help & Support', to: '/user-dashboard/help' },
+  ];
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+
+  return (
+    <div className="w-64 bg-background text-foreground p-4 shadow-lg top-0 h-screen flex flex-col">
       <div className="mb-8">
         <h1 className="text-2xl font-bold">User Dashboard</h1>
       </div>
-      <nav>
-        <ul className="space-y-2">
-          {navItems.map((item) => (
-            <li key={item.name}>
-              <NavLink
-                to={item.path}
-                className={({ isActive }) =>
-                  `flex items-center p-2 rounded-lg ${
-                    isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-accent'
-                  }`
-                }
-              >
-                <item.icon className="mr-3 h-5 w-5" />
-                <span>{item.name}</span>
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+      <nav className="space-y-2 flex-1">
+        {links.map((link) => (
+          <SidebarLink key={link.label} {...link} />
+        ))}
       </nav>
-    </aside>
+      <Button 
+        variant="ghost" 
+        className="w-full justify-start text-red-500 hover:text-red-600 hover:bg-red-100"
+        onClick={handleLogout}
+      >
+        <LogOut size={20} />
+        <span className="ml-2">Logout</span>
+      </Button>
+    </div>
   );
 };
 

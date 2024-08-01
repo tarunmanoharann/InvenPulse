@@ -15,11 +15,13 @@ const App = () => {
           <Route index element={<LandingPage />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
-          <Route path="user-dashboard" element={
+
+          <Route path="user-dashboard/*" element={
             <ProtectedRoute allowedRole="user">
               <UserDashboard />
             </ProtectedRoute>
           } />
+          
           <Route path="admin-dashboard/*" element={
             <ProtectedRoute allowedRole="admin">
               <AdminDashboard />
