@@ -1,5 +1,5 @@
 import { Outlet, Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { RootState } from '../store/store';
 import { useState } from 'react';
 import { IconSun, IconMoon } from '@tabler/icons-react';
