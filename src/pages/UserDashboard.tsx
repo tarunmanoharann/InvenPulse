@@ -4,7 +4,7 @@ import { Route, Routes, Outlet } from 'react-router-dom';
 import Sidebar from '../components/user/Sidebar';
 import Dashboard from '../components/user/Dashboard';
 import InventoryList from '../components/user/InventoryList';
-// import SearchProducts from './user/SearchProducts';
+import SearchProducts from '../components/user/SearchProducts';
 // import Orders from './user/Orders';
 // import Reports from './user/Reports';
 // import Notifications from './user/Notifications';
@@ -30,7 +30,7 @@ const UserDashboard: React.FC = () => {
         <Route element={<UserLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="inventory" element={<InventoryList />} />
-          {/* <Route path="search" element={<SearchProducts />} /> */}
+          <Route path="search" element={<SearchProducts />} />
           {/* <Route path="orders" element={<Orders />} /> */}
           {/* <Route path="reports" element={<Reports />} /> */}
           {/* <Route path="notifications" element={<Notifications />} /> */}
