@@ -6,10 +6,10 @@ import Dashboard from '../components/user/Dashboard';
 import InventoryList from '../components/user/InventoryList';
 import SearchProducts from '../components/user/SearchProducts';
 import Orders from '../components/user/Orders';
-// import Reports from './user/Reports';
-// import Notifications from './user/Notifications';
+import Reports from '../components/user/Reports';
+import Notifications from '../components/user/Notifications';
 import UserProfile from '../components/user/UserProfile';
-// import HelpSupport from './user/HelpSupport';
+import HelpSupport from '../components/user/HelpSupport';
 import { ThemeProvider } from "next-themes";
 
 const UserLayout = () => {
@@ -32,10 +32,10 @@ const UserDashboard: React.FC = () => {
           <Route path="inventory" element={<InventoryList />} />
           <Route path="search" element={<SearchProducts />} />
           <Route path="orders" element={<Orders />} />
-          {/* <Route path="reports" element={<Reports />} /> */}
-          {/* <Route path="notifications" element={<Notifications />} /> */}
+          <Route path="reports" element={<Reports />} />
+          <Route path="notifications" element={<Notifications />} />
           <Route path="profile" element={<UserProfile />} />
-          {/* <Route path="help" element={<HelpSupport />} /> */}
+          <Route path="help" element={<HelpSupport />} />
         </Route>
       </Routes>
     </ThemeProvider>

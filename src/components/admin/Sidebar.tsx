@@ -60,8 +60,8 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className="w-64 bg-background text-foreground p-4 shadow-lg top-0 h-screen flex flex-col">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold">Admin Dashboard</h1>
+      <div className="mb-4">
+        <h1 className="text-2xl font-bold">Admin</h1>
       </div>
       <nav className="space-y-2 flex-1">
         {links.map((link) => (

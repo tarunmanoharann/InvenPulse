@@ -198,10 +198,10 @@ const LandingPage: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="z-10 bg-black bg-opacity-70 p-14 rounded-lg"
+          className="z-10 bg-black bg-opacity-70 p-14 rounded-xl"
         >
           <motion.h1 
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
             className="text-6xl font-bold text-white mb-6"
