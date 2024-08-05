@@ -306,15 +306,19 @@ const LandingPage: React.FC = () => {
   </div>
 </AnimatedSection>
 
-      <AnimatedSection className="py-16 bg-slate-50">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-black mb-6">Ready to Transform Your Inventory Management?</h2>
-          <p className="text-xl text-black mb-8">Join thousands of businesses already optimizing their operations with InvenPulse.</p>
-          <button className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md  transition duration-300">
-            Start Your 30-Day Free Trial
-          </button>
-        </div>
-      </AnimatedSection>
+<AnimatedSection className="py-16 bg-slate-50 dark:bg-gray-800">
+  <div className="container mx-auto px-4 text-center">
+    <h2 className="text-4xl font-bold text-black dark:text-white mb-6">
+      Ready to Transform Your Inventory Management?
+    </h2>
+    <p className="text-xl text-black dark:text-gray-300 mb-8">
+      Join thousands of businesses already optimizing their operations with InvenPulse.
+    </p>
+    <button className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-opacity-90 dark:bg-purple-600 dark:hover:bg-purple-700">
+      Start Your 30-Day Free Trial
+    </button>
+  </div>
+</AnimatedSection>
 
       <Footer/>
     </div>
