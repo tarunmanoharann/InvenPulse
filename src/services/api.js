@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-// const baseURL = 'http://65.1.244.186:7777/api';
-const baseURL = 'http://localhost:7777/api';
+const baseURL = 'http://intelli-ventory.onrender.com/api';
 const axiosInstance = axios.create({
     baseURL,
 });
@@ -24,7 +22,9 @@ const UserData = (email) => axiosInstance.get(`/users/email/${email}`);
 const UpdateUserByID = (id, data) => axiosInstance.put(`/users/update/${id}`, data)
 const DeleteUserByID = (id) => axiosInstance.delete(`/users/delete/${id}`)
 
-//Admin
+
+
+
 const getAllUsers = () => axiosInstance.get('/users/all')
 const CreateUser = (name, email, role, phone, address, password) => axiosInstance.post('/user/add', { name, email, phone, role, address, password });
 

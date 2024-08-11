@@ -35,12 +35,11 @@ const isLoggedIn = () => {
     if (token) {
         const payLoad = jwtDecode(token);
         const isLogin = Date.now() < payLoad.exp * 1000;
-        //10000ms -> s -> ms*1000 -> 10s
         return isLogin;
     }
 }
 
-const SignIn = (email, password) => axiosInstance.post("/auth/login", { email, password });
+const SignIn = (email, password) => axiosInstance.post("/pages/login", { email, password });
 const SignOut = () => localStorage.removeItem('token')
 
 

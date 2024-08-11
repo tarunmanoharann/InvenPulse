@@ -8,7 +8,6 @@ const getAllUsersData = async () => {
 
 }
 const deleteUser = async (uid) => {
-    // console.log(uid)
     const res = await DeleteUserByID(uid);
     return res?.data;
 }
