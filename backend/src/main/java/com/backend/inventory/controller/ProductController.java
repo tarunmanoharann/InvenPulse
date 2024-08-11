@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.inventory.model.Product;
 import com.backend.inventory.service.ProductService;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 

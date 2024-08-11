@@ -20,7 +20,7 @@ import com.backend.inventory.exception.EmailAlreadyRegisteredException;
 import com.backend.inventory.model.User;
 import com.backend.inventory.service.EmailService;
 import com.backend.inventory.service.UserService;
-import org.springframework.web.bind.annotation.PutMapping;
+
 
 
 @RestController
