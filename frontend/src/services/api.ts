@@ -1,62 +1,68 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestHeaders, InternalAxiosRequestConfig } from 'axios';
 
-// Base URL for your Spring Boot backend
-const baseURL = 'http://localhost:8080/api'; // Change this to your actual backend URL
+// Define the API URL
+const API_URL = 'http://localhost:8080';
 
-// Create an axios instance with the base URL
+// Create an instance of Axios with the base URL
 const axiosInstance = axios.create({
-    baseURL,
+  baseURL: API_URL,
 });
 
-// Interceptor to add the JWT token to every request
+// Set up the request interceptor
 axiosInstance.interceptors.request.use(
-    (config) => {
-        const token = localStorage.getItem('token');
-        if (token && config.headers) {
-            config.headers.Authorization = `Bearer ${token}`;
-        }
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
+  (config: InternalAxiosRequestConfig) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Ensure headers is defined and properly cast to AxiosRequestHeaders
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      } as AxiosRequestHeaders;
     }
+    return config;
+  },
+  (error: AxiosError) => Promise.reject(error)
 );
 
-export interface LoginResponse {
-    user: User;
-    token: string;
-}
+// Define the authService with async functions for login, logout, and register
+const authService = {
+  login: async (email: string, password: string) => {
+    try {
+      const response = await axiosInstance.post('/api/auth/login', {
+        email,
+        password,
+      });
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token); // Assuming response.data contains token
+      }
+      return response.data;
+    } catch (error) {
+      // Handle error appropriately
+      throw new Error('Login failed');
+    }
+  },
+  logout: async () => {
+    try {
+      await axiosInstance.post('/api/auth/logout');
+    } finally {
+      localStorage.removeItem('token');
+    }
+  },
+  register: async (name: string, email: string, phone: string, address: string, password: string) => {
+    try {
+      const response = await axiosInstance.post('/api/auth/register', {
+        name,
+        email,
+        phone,
+        address,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      // Handle error appropriately
+      throw new Error('Registration failed');
+    }
+  },
+};
 
-export interface User {
-    id: number;
-    name: string;
-    email: string;
-    role: 'user' | 'admin';
-    phone: string;
-    address: string;
-}
-
-// Authentication APIs
-export const login = (email: string, password: string): Promise<AxiosResponse<LoginResponse>> => 
-    axios.post(`${baseURL}/auth/login`, { email, password });
-
-export const register = (name: string, email: string, role: string, phone: string, address: string, password: string): Promise<AxiosResponse<LoginResponse>> => 
-    axios.post(`${baseURL}/auth/register`, { name, email, role, phone, address, password });
-
-// User management APIs
-export const getAllUsers = (): Promise<AxiosResponse<User[]>> => 
-    axiosInstance.get('/users/all');
-
-export const getUserByEmail = (email: string): Promise<AxiosResponse<User>> => 
-    axiosInstance.get(`/users/email/${email}`);
-
-export const updateUser = (id: number, data: Partial<User>): Promise<AxiosResponse<User>> => 
-    axiosInstance.put(`/users/update/${id}`, data);
-
-export const deleteUser = (id: number): Promise<AxiosResponse<void>> => 
-    axiosInstance.delete(`/users/delete/${id}`);
-
-export const createUser = (name: string, email: string, role: string, phone: string, address: string, password: string): Promise<AxiosResponse<User>> => 
-    axiosInstance.post('/users/add', { name, email, role, phone, address, password });
-
-export default axiosInstance;
+export { authService, axiosInstance };

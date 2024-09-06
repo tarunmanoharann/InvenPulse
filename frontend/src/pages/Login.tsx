@@ -1,82 +1,82 @@
+// src/pages/Login.tsx
+
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
-import { loginSuccess, User } from '../store/authSlice';
-import { login, LoginResponse } from '../services/api';
-import MiniFooter from '../components/MiniFooter';
-import { AppDispatch } from '../store/store';
+import { authService } from '../services/api';
+import { useUser } from '../components/UserContext';
+import {jwtDecode} from 'jwt-decode'; 
+
+interface DecodedToken {
+  sub: string;
+  role: string;
+}
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const { setUser } = useUser();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError('');
+  const handleLogin = async () => {
     try {
-      const response = await login(email, password);
-      const { user, token } = response.data;
-      localStorage.setItem('token', token);
-      dispatch(loginSuccess(user));
-      navigate(user.role === 'admin' ? '/admin-dashboard' : '/user-dashboard');
-    } catch (error) {
-      console.error('Login failed:', error);
-      setError('Invalid email or password');
+      const token = await authService.login(email, password);
+      console.log('Login successful, token received:', token);
+
+      const decodedToken = jwtDecode<DecodedToken>(token);
+
+      setUser({
+        email: decodedToken.sub,
+        role: decodedToken.role,
+      });
+
+      navigate('/dashboard');
+    } catch (error: any) {
+      console.error('Login failed:', error.response?.data || error.message);
+      setError(error.response?.data || 'An error occurred during login');
     }
   };
 
   return (
-    <div className="min-h-screen w-full bg-background-light dark:bg-background-dark flex flex-col">
-      <div className="flex-grow flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <h2 className="text-center text-2xl font-bold text-text-light dark:text-text-dark">Sign in to InvenPulse</h2>
-        </div>
-        <div className="mt-4 sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white dark:bg-gray-800 py-6 px-4 shadow sm:rounded-lg sm:px-8">
-            <form className="space-y-4" onSubmit={handleSubmit}>
-              {error && <div className="text-red-500 text-center">{error}</div>}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-text-light dark:text-text-dark">Email address</label>
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-text-light dark:text-text-dark">Password</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm dark:bg-gray-700 dark:text-white"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </div>
-              <div>
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-                >
-                  Sign in
-                </button>
-              </div>
-            </form>
+    <div className="flex justify-center items-center h-full mt-52">
+      <Card className="w-2/6">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>Enter your email below to login</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              type="email"
+              placeholder="email: neo@gmail.com"
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+            />
           </div>
-        </div>
-      </div>
-      <MiniFooter />
+          <div className="grid gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              placeholder="pass: 1234"
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+            />
+          </div>
+          {error && <div className="text-red-500">{error}</div>}
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full" onClick={handleLogin}>
+            Login
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 };

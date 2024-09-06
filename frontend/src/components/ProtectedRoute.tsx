@@ -1,14 +1,15 @@
-// ProtectedRoute.tsx
-import { useSelector } from 'react-redux';
+// src/components/ProtectedRoute.tsx
+import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { RootState } from '../store/store';
+import { useUser } from '../components/UserContext';
 
-const ProtectedRoute = ({ children, allowedRole }: { children: React.ReactNode, allowedRole: 'user' | 'admin' }) => {
-  const { user, isLoading } = useSelector((state: RootState) => state.auth);
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRole: 'user' | 'admin';
+}
 
-  if (isLoading) {
-    return <div>Loading...</div>; // Or a loading spinner
-  }
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRole }) => {
+  const { user } = useUser();
 
   if (!user) {
     return <Navigate to="/login" replace />;

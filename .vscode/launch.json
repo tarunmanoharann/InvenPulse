@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "JwtApplication",
+            "request": "launch",
+            "mainClass": "com.invenpulse.jwt.JwtApplication",
+            "projectName": "jwt"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-InventoryApplication<com.backend-inventory>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

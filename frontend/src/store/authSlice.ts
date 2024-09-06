@@ -1,42 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+const TOKEN_KEY = 'token';
+
 export interface User {
   id: number;
-  name: string;
-  email: string;
-  role: 'user' | 'admin';
-  phone: string;
-  address: string;
+  username: string;
+  roles: string[];
 }
 
 export interface AuthState {
   user: User | null;
+  token: string | null;
   isLoading: boolean;
   error: string | null;
 }
 
-// Load initial state from localStorage
-const loadState = (): AuthState => {
-  try {
-    const serializedState = localStorage.getItem('authState');
-    if (serializedState === null) {
-      return {
-        user: null,
-        isLoading: false,
-        error: null,
-      };
-    }
-    return JSON.parse(serializedState);
-  } catch (err) {
-    return {
-      user: null,
-      isLoading: false,
-      error: null,
-    };
-  }
+const initialState: AuthState = {
+  user: null,
+  token: localStorage.getItem(TOKEN_KEY),
+  isLoading: false,
+  error: null,
 };
-
-const initialState: AuthState = loadState();
 
 const authSlice = createSlice({
   name: 'auth',
@@ -45,28 +29,42 @@ const authSlice = createSlice({
     loginStart: (state) => {
       state.isLoading = true;
     },
-    loginSuccess: (state, action: PayloadAction<User>) => {
+    loginSuccess: (state, action: PayloadAction<{ token: string }>) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.token = action.payload.token;
       state.error = null;
-      // Save to localStorage
-      localStorage.setItem('authState', JSON.stringify(state));
+      localStorage.setItem(TOKEN_KEY, action.payload.token);
     },
     loginFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.error = action.payload;
       state.user = null;
-      // Clear localStorage on login failure
-      localStorage.removeItem('authState');
+      state.token = null;
+      localStorage.removeItem(TOKEN_KEY);
     },
     logout: (state) => {
       state.user = null;
+      state.token = null;
       state.error = null;
-      // Clear localStorage on logout
-      localStorage.removeItem('authState');
+      localStorage.removeItem(TOKEN_KEY);
     },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    // ... add other actions as needed
   },
 });
 
-export const { loginStart, loginSuccess, loginFailure, logout } = authSlice.actions;
+export const { 
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logout, 
+  setUser, 
+  clearError 
+} = authSlice.actions;
+
 export default authSlice.reducer;
