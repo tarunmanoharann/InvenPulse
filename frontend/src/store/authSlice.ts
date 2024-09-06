@@ -1,37 +1,70 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface User {
-  email: string;
-  role: string;
+const TOKEN_KEY = 'token';
+
+export interface User {
+  id: number;
+  username: string;
+  roles: string[];
 }
 
-interface AuthState {
+export interface AuthState {
   user: User | null;
   token: string | null;
+  isLoading: boolean;
+  error: string | null;
 }
 
 const initialState: AuthState = {
   user: null,
-  token: null,
+  token: localStorage.getItem(TOKEN_KEY),
+  isLoading: false,
+  error: null,
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setUser: (state, action: PayloadAction<User>) => {
-      state.user = action.payload;
+    loginStart: (state) => {
+      state.isLoading = true;
     },
-    setToken: (state, action: PayloadAction<string>) => {
-      state.token = action.payload;
+    loginSuccess: (state, action: PayloadAction<{ token: string }>) => {
+      state.isLoading = false;
+      state.token = action.payload.token;
+      state.error = null;
+      localStorage.setItem(TOKEN_KEY, action.payload.token);
+    },
+    loginFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+      state.user = null;
+      state.token = null;
+      localStorage.removeItem(TOKEN_KEY);
     },
     logout: (state) => {
       state.user = null;
       state.token = null;
+      state.error = null;
+      localStorage.removeItem(TOKEN_KEY);
     },
+    setUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+    clearError: (state) => {
+      state.error = null;
+    },
+    // ... add other actions as needed
   },
 });
 
-export const { setUser, setToken, logout } = authSlice.actions;
+export const { 
+  loginStart, 
+  loginSuccess, 
+  loginFailure, 
+  logout, 
+  setUser, 
+  clearError 
+} = authSlice.actions;
 
 export default authSlice.reducer;

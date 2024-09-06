@@ -1,15 +1,15 @@
+// src/components/ProtectedRoute.tsx
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/store';
+import { useUser } from '../components/UserContext';
 
 interface ProtectedRouteProps {
-  allowedRole: string;
   children: React.ReactNode;
+  allowedRole: 'user' | 'admin';
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRole, children }) => {
-  const user = useSelector((state: RootState) => state.auth.user);
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRole }) => {
+  const { user } = useUser();
 
   if (!user) {
     return <Navigate to="/login" replace />;

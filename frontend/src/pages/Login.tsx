@@ -1,35 +1,40 @@
+// src/pages/Login.tsx
+
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setUser, setToken } from '../store/authSlice';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/api';
+import { useUser } from '../components/UserContext';
+import {jwtDecode} from 'jwt-decode'; 
+
+interface DecodedToken {
+  sub: string;
+  role: string;
+}
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const { setUser } = useUser();
 
   const handleLogin = async () => {
     try {
       const token = await authService.login(email, password);
       console.log('Login successful, token received:', token);
 
-      const role = email === 'admin@gmail.com' ? 'admin' : 'user';
+      const decodedToken = jwtDecode<DecodedToken>(token);
 
-      dispatch(setUser({ email, role }));
-      dispatch(setToken(token));
-      
-      if (role === 'admin') {
-        navigate('/admin-dashboard');
-      } else {
-        navigate('/dashboard');
-      }
+      setUser({
+        email: decodedToken.sub,
+        role: decodedToken.role,
+      });
+
+      navigate('/dashboard');
     } catch (error: any) {
       console.error('Login failed:', error.response?.data || error.message);
       setError(error.response?.data || 'An error occurred during login');
@@ -49,7 +54,7 @@ const Login: React.FC = () => {
             <Input
               id="email"
               type="email"
-              placeholder="email: urname@gmail.com"
+              placeholder="email: neo@gmail.com"
               value={email}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
             />
@@ -59,7 +64,7 @@ const Login: React.FC = () => {
             <Input
               id="password"
               type="password"
-              placeholder="pass: 123456"
+              placeholder="pass: 1234"
               value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
             />
