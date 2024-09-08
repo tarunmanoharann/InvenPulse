@@ -7,7 +7,6 @@ import Orders from '../components/admin/Orders';
 import Users from '../components/admin/Users';
 import Reports from '../components/admin/Reports';
 import Settings from '../components/admin/Settings';
-import { ThemeProvider } from "next-themes";
 
 const AdminLayout = () => {
   return (
@@ -22,7 +21,6 @@ const AdminLayout = () => {
 
 const AdminDashboard: React.FC = () => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Routes>
         <Route element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
@@ -33,7 +31,7 @@ const AdminDashboard: React.FC = () => {
           <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
-    </ThemeProvider>
+    
   );
 };
 

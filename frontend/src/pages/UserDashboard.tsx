@@ -10,7 +10,7 @@ import Reports from '../components/user/Reports';
 import Notifications from '../components/user/Notifications';
 import UserProfile from '../components/user/UserProfile';
 import HelpSupport from '../components/user/HelpSupport';
-import { ThemeProvider } from "next-themes";
+
 
 const UserLayout = () => {
   return (
@@ -25,7 +25,6 @@ const UserLayout = () => {
 
 const UserDashboard: React.FC = () => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
       <Routes>
         <Route element={<UserLayout />}>
           <Route index element={<Dashboard />} />
@@ -38,7 +37,6 @@ const UserDashboard: React.FC = () => {
           <Route path="help" element={<HelpSupport />} />
         </Route>
       </Routes>
-    </ThemeProvider>
   );
 };
 
