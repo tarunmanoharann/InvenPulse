@@ -1,7 +1,7 @@
 import React, { useRef, ReactNode, useEffect, useState } from 'react';
 import { motion, useInView, useAnimationControls } from 'framer-motion';
 import * as THREE from 'three';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Footer from '@/components/Footer';
 
 const HeroAnimation: React.FC = () => {
@@ -134,8 +134,6 @@ const AnimatedSection: React.FC<AnimatedSectionProps> = ({ children, className }
   useEffect(() => {
     if (isInView) {
       controls.start({ opacity: 1, y: 0 });
-    } else {
-      controls.start({ opacity: 0, y: 50 });
     }
   }, [isInView, controls]);
 
@@ -230,14 +228,15 @@ const LandingPage: React.FC = () => {
 
       <AnimatedSection className="py-16 bg-white dark:bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Optimize Your Supply Chain</h2>
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Optimize Your Inventory Management</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2, duration: 0.8 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.3 }}
                 className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md"
               >
                 <div className="text-4xl mb-4">{feature.icon}</div>
@@ -275,54 +274,60 @@ const LandingPage: React.FC = () => {
       </AnimatedSection>
 
       <AnimatedSection className="py-16 bg-gray-100 dark:bg-gray-800">
-  <div className="container mx-auto px-4">
-    <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Flexible Pricing Plans</h2>
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {['Startup', 'Business', 'Enterprise'].map((plan, index) => (
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: index * 0.3, duration: 0.8 }}
-          className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md text-center flex flex-col h-full"
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-12">Flexible Pricing Plans</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {['Startup', 'Business', 'Enterprise'].map((plan, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true, amount: 0.3 }}
+                className="bg-white dark:bg-gray-700 p-8 rounded-lg shadow-md text-center flex flex-col h-full"
+              >
+                <div className="flex-grow">
+                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{plan}</h3>
+                  <p className="text-4xl font-bold text-6945C9 mb-6">${(index + 1) * 99}<span className="text-sm text-gray-600 dark:text-gray-400">/mo</span></p>
+                <ul className="text-left mb-8">
+                  <li className="mb-2">✅ Real-time Tracking</li>
+                  <li className="mb-2">✅ Multi-channel Management</li>
+                  <li className="mb-2">✅ Mobile App Access</li>
+                  {index > 0 && <li className="mb-2">✅ Advanced Analytics</li>}
+                  {index > 1 && <li className="mb-2">✅ Dedicated Account Manager</li>}
+                </ul>
+              </div>
+              <button className="w-full px-6 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300 mt-auto">
+                Choose Plan
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </AnimatedSection>
+
+    <AnimatedSection className="py-16 bg-slate-50 dark:bg-gray-800">
+      <div className="container mx-auto px-4 text-center">
+        <h2 className="text-4xl font-bold text-black dark:text-white mb-6">
+          Ready to Transform Your Inventory Management?
+        </h2>
+        <p className="text-xl text-black dark:text-gray-300 mb-8">
+          Join thousands of businesses already optimizing their operations with InvenPulse.
+        </p>
+        <motion.button 
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-opacity-90 dark:bg-purple-600 dark:hover:bg-purple-700"
         >
-          <div className="flex-grow">
-            <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">{plan}</h3>
-            <p className="text-4xl font-bold text-6945C9 mb-6">${(index + 1) * 99}<span className="text-sm text-gray-600 dark:text-gray-400">/mo</span></p>
-            <ul className="text-left mb-8">
-              <li className="mb-2">✅ Real-time Tracking</li>
-              <li className="mb-2">✅ Multi-channel Management</li>
-              <li className="mb-2">✅ Mobile App Access</li>
-              {index > 0 && <li className="mb-2">✅ Advanced Analytics</li>}
-              {index > 1 && <li className="mb-2">✅ Dedicated Account Manager</li>}
-            </ul>
-          </div>
-          <button className="w-full px-6 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition duration-300 mt-auto">
-            Choose Plan
-          </button>
-        </motion.div>
-      ))}
-    </div>
-  </div>
-</AnimatedSection>
+          Start Your 30-Day Free Trial
+        </motion.button>
+      </div>
+    </AnimatedSection>
 
-<AnimatedSection className="py-16 bg-slate-50 dark:bg-gray-800">
-  <div className="container mx-auto px-4 text-center">
-    <h2 className="text-4xl font-bold text-black dark:text-white mb-6">
-      Ready to Transform Your Inventory Management?
-    </h2>
-    <p className="text-xl text-black dark:text-gray-300 mb-8">
-      Join thousands of businesses already optimizing their operations with InvenPulse.
-    </p>
-    <button className="px-8 py-3 bg-customPurple text-white font-semibold rounded-lg shadow-md transition duration-300 hover:bg-opacity-90 dark:bg-purple-600 dark:hover:bg-purple-700">
-      Start Your 30-Day Free Trial
-    </button>
+    <Footer/>
   </div>
-</AnimatedSection>
+);
 
-      <Footer/>
-    </div>
-  );
 };
 
 export default LandingPage;
