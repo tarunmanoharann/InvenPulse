@@ -1,0 +1,21 @@
+[debug] [2024-11-11T18:51:51.723Z] ----------------------------------------------------------------------
+[debug] [2024-11-11T18:51:51.726Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\mtaru\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2024-11-11T18:51:51.727Z] CLI Version:   13.24.2
+[debug] [2024-11-11T18:51:51.727Z] Platform:      win32
+[debug] [2024-11-11T18:51:51.727Z] Node Version:  v20.11.1
+[debug] [2024-11-11T18:51:51.727Z] Time:          Tue Nov 12 2024 00:21:51 GMT+0530 (India Standard Time)
+[debug] [2024-11-11T18:51:51.727Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-11T18:51:51.735Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-11T18:51:51.735Z] > authorizing via signed-in user (m.tarun13122004@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\mtaru\OneDrive\Documents\GitHub\InvenPulse
+
