@@ -27,7 +27,7 @@
     "axios": "^1.7.9",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "firebase": "^11.1.0",
+    "firebase": "^11.4.0",
     "framer-motion": "^11.3.19",
     "invenpulse": "file:",
     "jwt-decode": "^4.0.0",
