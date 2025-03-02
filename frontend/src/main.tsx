@@ -6,6 +6,8 @@ import App from './App';
 import { store } from './store/store'; // Make sure this path is correct
 import './index.css';
 import { UserProvider } from './components/UserContext';
+// Add this import at the top of main.tsx
+import './firebase';  // This ensures Firebase is initialized before your app starts
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

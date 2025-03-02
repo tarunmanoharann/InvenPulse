@@ -1,22 +1,32 @@
-// src/components/ProtectedRoute.tsx
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useUser } from '../components/UserContext';
+import { useUser } from './UserContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRole: 'user' | 'admin';
+  allowedRole: string;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRole }) => {
-  const { user } = useUser();
+  const { user, isAuthenticated, loading } = useUser();
 
-  if (!user) {
+  // Show loading indicator or skeleton while checking authentication
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // If not authenticated, redirect to login
+  if (!isAuthenticated || !user) {
     return <Navigate to="/login" replace />;
   }
 
+  // If role doesn't match, redirect to appropriate dashboard
   if (user.role !== allowedRole) {
-    return <Navigate to="/" replace />;
+    if (user.role === 'admin') {
+      return <Navigate to="/admin-dashboard" replace />;
+    } else {
+      return <Navigate to="/user-dashboard" replace />;
+    }
   }
 
   return <>{children}</>;
