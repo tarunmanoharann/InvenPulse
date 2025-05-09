@@ -1,2 +1,0 @@
-# SDP
-Inventory Management System
