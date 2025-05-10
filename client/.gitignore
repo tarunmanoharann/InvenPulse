@@ -1,50 +1,41 @@
-# Node modules
-node_modules/
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Output of 'next build'
-.next/
-out/
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
 
-# Logs
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+.pnpm-debug.log*
 
-# Dependency directories
-jspm_packages/
+# env files (can opt-in for committing if needed)
+.env*
 
-# dotenv environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# vercel
+.vercel
 
-# Next.js build outputs
-.next/
-out/
-
-# VSCode settings
-.vscode/
-
-# Mac system files
-.DS_Store
-
-# Optional: Ignore coverage directory if using testing tools
-coverage/
-
-# Optional: Ignore static exports
-export/
-
-# Optional: Ignore log files
-*.log
-
-# Optional: Ignore local runtime data
-*.swp
-*.swo
-
-# Optional: ignore IDE folders
-.idea/
-*.sublime-project
-*.sublime-workspace
+# typescript
+*.tsbuildinfo
+next-env.d.ts
