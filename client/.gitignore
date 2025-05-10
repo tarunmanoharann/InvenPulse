@@ -1,24 +1,50 @@
+# Node modules
+node_modules/
+
+# Output of 'next build'
+.next/
+out/
+
 # Logs
-logs
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Dependency directories
+jspm_packages/
 
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# dotenv environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js build outputs
+.next/
+out/
+
+# VSCode settings
+.vscode/
+
+# Mac system files
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+
+# Optional: Ignore coverage directory if using testing tools
+coverage/
+
+# Optional: Ignore static exports
+export/
+
+# Optional: Ignore log files
+*.log
+
+# Optional: Ignore local runtime data
+*.swp
+*.swo
+
+# Optional: ignore IDE folders
+.idea/
+*.sublime-project
+*.sublime-workspace

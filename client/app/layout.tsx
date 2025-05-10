@@ -7,6 +7,8 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { UserProvider } from '@/contexts/UserContext'
 import Providers from '@/components/Providers'
 import Header from '@/components/Header'
+import { Suspense } from 'react'
+import Loading from './loading'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -38,7 +40,9 @@ export default function RootLayout({
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
             <Header />
             <main className="flex-grow">
-              {children}
+              <Suspense fallback={<Loading />}>
+                {children}
+              </Suspense>
             </main>
           </div>
         </Providers>
