@@ -7,7 +7,7 @@ import { IconSun, IconMoon } from '@tabler/icons-react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
-const Header: React.FC = () => {
+const Header = () => {
   const pathname = usePathname();
   const { user, loading } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();

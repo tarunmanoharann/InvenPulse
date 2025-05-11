@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 
-const HeroAnimation: React.FC = () => {
+const HeroAnimation = () => {
   const mountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
