@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import HeroAnimation from '@/components/HeroAnimation';
-
+import Footer from '@/components/Footer';
 interface Feature {
   title: string;
   description: string;
@@ -116,6 +116,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   );
 } 
