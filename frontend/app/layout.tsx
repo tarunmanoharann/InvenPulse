@@ -1,10 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { AuthProvider } from '@/contexts/AuthContext'
-import { UserProvider } from '@/contexts/UserContext'
+import { Toaster } from 'react-hot-toast'
 import Providers from '@/components/Providers'
 import Header from '@/components/Header'
 import { Suspense } from 'react'
@@ -26,16 +23,15 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <ToastContainer
+          <Toaster 
             position="top-right"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#363636',
+                color: '#fff',
+              },
+            }}
           />
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
             <Header />
