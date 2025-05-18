@@ -12,7 +12,6 @@ interface AuthState {
   isAuthenticated: boolean;
   loading: boolean;
 }
-
 const initialAuthState: AuthState = {
   user: null,
   isAuthenticated: false,

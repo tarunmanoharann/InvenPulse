@@ -4,12 +4,10 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { IconSun, IconMoon } from '@tabler/icons-react';
-import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/contexts/ThemeContext';
 
 const Header = () => {
   const pathname = usePathname();
-  const { user, loading } = useAuth();
   const { isDarkMode, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -17,76 +15,40 @@ const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const hasRole = (role: string) => {
-    return user?.roles?.includes(role) || false;
-  };
-
   return (
     <nav className={`${isDarkMode ? 'dark:bg-gray-900' : 'bg-white'} shadow sticky top-0 z-50`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex-shrink-0 flex items-center">
-            {!user ? (
-              <Link href="/" className="text-2xl font-bold text-primary">
-                <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path 
-                    className="animate-stack-1" 
-                    d="M2 17L12 22L22 17" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  <path 
-                    className="animate-stack-2" 
-                    d="M2 12L12 17L22 12" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  <path 
-                    className="animate-stack-3" 
-                    d="M12 2L2 7L12 12L22 7L12 2Z" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                InvenPulse
-              </Link>
-            ) : (
-              <div className="text-2xl font-bold text-primary">
-                <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path 
-                    className="animate-stack-1" 
-                    d="M2 17L12 22L22 17" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  <path 
-                    className="animate-stack-2" 
-                    d="M2 12L12 17L22 12" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                  <path 
-                    className="animate-stack-3" 
-                    d="M12 2L2 7L12 12L22 7L12 2Z" 
-                    stroke="currentColor" 
-                    strokeWidth="2" 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                InvenPulse
-              </div>
-            )}
+            <Link href="/" className="text-2xl font-bold text-primary">
+              <svg className="h-8 w-8 mr-2 inline" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  className="animate-stack-1" 
+                  d="M2 17L12 22L22 17" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+                <path 
+                  className="animate-stack-2" 
+                  d="M2 12L12 17L22 12" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+                <path 
+                  className="animate-stack-3" 
+                  d="M12 2L2 7L12 12L22 7L12 2Z" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                />
+              </svg>
+              InvenPulse
+            </Link>
           </div>
 
           <button
@@ -110,33 +72,20 @@ const Header = () => {
           </button>
 
           <div className="hidden sm:flex sm:items-center sm:ml-6">
-            {!loading && (
-              !user ? (
-                <div className="flex space-x-4">
-                  <Link
-                    href="/login"
-                    className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary px-3 py-2 rounded-md text-sm font-medium ${pathname === '/login' ? 'text-primary' : ''}`}
-                  >
-                    Login
-                  </Link>
-                  <Link
-                    href="/register"
-                    className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary px-3 py-2 rounded-md text-sm font-medium ${pathname === '/register' ? 'text-primary' : ''}`}
-                  >
-                    Register
-                  </Link>
-                </div>
-              ) : (
-                <div className="flex items-center space-x-4">
-                  <Link
-                    href={hasRole('admin') ? '/dashboard' : '/dashboard'}
-                    className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary px-3 py-2 rounded-md text-sm font-medium ${pathname?.includes('/dashboard') ? 'text-primary' : ''}`}
-                  >
-                    {hasRole('admin') ? 'Admin Dashboard' : 'Dashboard'}
-                  </Link>
-                </div>
-              )
-            )}
+            <div className="flex space-x-4">
+              <Link
+                href="/login"
+                className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary px-3 py-2 rounded-md text-sm font-medium ${pathname === '/login' ? 'text-primary' : ''}`}
+              >
+                Login
+              </Link>
+              <Link
+                href="/register"
+                className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary px-3 py-2 rounded-md text-sm font-medium ${pathname === '/register' ? 'text-primary' : ''}`}
+              >
+                Register
+              </Link>
+            </div>
           </div>
 
           <div className="sm:hidden flex items-center">
@@ -170,35 +119,22 @@ const Header = () => {
 
       <div className={`${isMobileMenuOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          {!loading && (
-            !user ? (
-              <>
-                <Link
-                  href="/login"
-                  className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium ${pathname === '/login' ? 'text-primary' : ''}`}
-                >
-                  Login
-                </Link>
-                <Link
-                  href="/register"
-                  className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium ${pathname === '/register' ? 'text-primary' : ''}`}
-                >
-                  Register
-                </Link>
-              </>
-            ) : (
-              <Link
-                href={hasRole('admin') ? '/dashboard' : '/dashboard'}
-                className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium ${pathname?.includes('/dashboard') ? 'text-primary' : ''}`}
-              >
-                {hasRole('admin') ? 'Admin Dashboard' : 'Dashboard'}
-              </Link>
-            )
-          )}
+          <Link
+            href="/login"
+            className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium ${pathname === '/login' ? 'text-primary' : ''}`}
+          >
+            Login
+          </Link>
+          <Link
+            href="/register"
+            className={`${isDarkMode ? 'dark:text-gray-300' : 'text-gray-500'} hover:text-primary block px-3 py-2 rounded-md text-base font-medium ${pathname === '/register' ? 'text-primary' : ''}`}
+          >
+            Register
+          </Link>
         </div>
       </div>
     </nav>
   );
 };
 
-export default Header; 
+export default Header;
