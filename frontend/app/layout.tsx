@@ -1,3 +1,5 @@
+'use client';
+
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -6,19 +8,19 @@ import Providers from '@/components/Providers'
 import Header from '@/components/Header'
 import { Suspense } from 'react'
 import Loading from './loading'
+import { usePathname } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'InvenPulse - Inventory Management System',
-  description: 'Modern inventory management system for businesses of all sizes',
-}
 
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
+  const isDashboard = pathname?.startsWith('/dashboard');
+
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -34,7 +36,7 @@ export default function RootLayout({
             }}
           />
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
-            <Header />
+            {!isDashboard && <Header />}
             <main className="flex-grow">
               <Suspense fallback={<Loading />}>
                 {children}
