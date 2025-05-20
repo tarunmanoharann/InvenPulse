@@ -40,16 +40,6 @@ An advanced inventory management system providing Demand Forecasting, Sentiment 
 - **Design:**
   - Figma
 
-## 📸 Screenshots
-
-### Home Page
-![HomePage Image](https://github.com/tarunmanoharann/InvenPulse/blob/main/photos/Home.png)
-
-### User Dashboard
-![UserDashboard Image](https://github.com/tarunmanoharann/InvenPulse/blob/main/photos/UserDashboard.png)
-
-### Admin Dashboard
-![AdminDashboard Image](https://github.com/tarunmanoharann/InvenPulse/blob/main/photos/AdminDashboard.png)
 
 ## 💻 Installation
 
