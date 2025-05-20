@@ -3,7 +3,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { Toaster } from 'react-hot-toast'
+import { Toaster } from '@/components/ui/toaster'
 import Providers from '@/components/Providers'
 import Header from '@/components/Header'
 import { Suspense } from 'react'
@@ -11,6 +11,7 @@ import Loading from './loading'
 import { usePathname } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
+
 
 
 export default function RootLayout({
@@ -25,16 +26,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <Toaster 
-            position="top-right"
-            toastOptions={{
-              duration: 3000,
-              style: {
-                background: '#363636',
-                color: '#fff',
-              },
-            }}
-          />
+          <Toaster />
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
             {!isDashboard && <Header />}
             <main className="flex-grow">
