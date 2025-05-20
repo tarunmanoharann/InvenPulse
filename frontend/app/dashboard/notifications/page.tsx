@@ -7,6 +7,7 @@ import { DataTable } from '@/components/ui/data-table';
 import { Bell, CheckCircle, Archive, AlertTriangle } from 'lucide-react';
 import { notificationService, type Notification, type NotificationStats } from '@/lib/services/notificationService';
 import { useToast } from '@/components/ui/use-toast';
+import { ColumnDef } from '@tanstack/react-table'; // Make sure this import exists
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -115,7 +116,16 @@ export default function NotificationsPage() {
     }
   };
 
-  const columns = [
+  // Define the priority colors with proper type
+  const priorityColors: Record<string, string> = {
+    low: 'bg-blue-100 text-blue-800',
+    medium: 'bg-yellow-100 text-yellow-800',
+    high: 'bg-orange-100 text-orange-800',
+    critical: 'bg-red-100 text-red-800',
+  };
+
+  // Define columns with proper typing
+  const columns: ColumnDef<Notification>[] = [
     {
       accessorKey: 'title',
       header: 'Title',
@@ -128,7 +138,7 @@ export default function NotificationsPage() {
       accessorKey: 'type',
       header: 'Type',
       cell: ({ row }) => {
-        const type = row.getValue('type');
+        const type = row.getValue('type') as string;
         return (
           <span className="capitalize">{type.replace('_', ' ')}</span>
         );
@@ -138,15 +148,9 @@ export default function NotificationsPage() {
       accessorKey: 'priority',
       header: 'Priority',
       cell: ({ row }) => {
-        const priority = row.getValue('priority');
-        const colors = {
-          low: 'bg-blue-100 text-blue-800',
-          medium: 'bg-yellow-100 text-yellow-800',
-          high: 'bg-orange-100 text-orange-800',
-          critical: 'bg-red-100 text-red-800',
-        };
+        const priority = row.getValue('priority') as string;
         return (
-          <span className={`px-2 py-1 rounded-full text-xs capitalize ${colors[priority]}`}>
+          <span className={`px-2 py-1 rounded-full text-xs capitalize ${priorityColors[priority] || ''}`}>
             {priority}
           </span>
         );
@@ -238,4 +242,4 @@ export default function NotificationsPage() {
       />
     </div>
   );
-} 
+}
