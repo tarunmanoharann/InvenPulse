@@ -69,8 +69,8 @@ export default function Sidebar() {
     // Show success message
     toast.success('Logged out successfully');
     
-    // Redirect to home page
-    router.push('/');
+    // Redirect to login page
+    router.push('/login');
   };
 
   return (
