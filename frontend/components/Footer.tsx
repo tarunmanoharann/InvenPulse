@@ -72,11 +72,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
-                  Pricing
-                </Link>
-              </li>
-              <li>
                 <Link href="/integrations" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
                   Integrations
                 </Link>
@@ -102,11 +97,6 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/api" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
-                  API Status
-                </Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
                   Contact Us
                 </Link>
@@ -124,16 +114,6 @@ const Footer = () => {
               <li>
                 <Link href="/blog" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
                   Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/jobs" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="/press" className="text-base text-gray-600 dark:text-gray-400 hover:text-primary">
-                  Press
                 </Link>
               </li>
             </ul>
