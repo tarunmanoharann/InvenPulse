@@ -13,7 +13,10 @@ export const metadata: Metadata = {
   title: 'InvenPulse - Inventory Management System',
   description: 'Modern inventory management system for businesses of all sizes',
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of b1db282 (Version 2.0)
 
 export default function RootLayout({
   children,
