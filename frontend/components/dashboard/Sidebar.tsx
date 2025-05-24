@@ -8,14 +8,13 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-hot-toast';
 import { 
   Home, Package, TrendingUp, ArrowUpRight, ArrowDownRight,
-  Users, FileText, Bell, Settings, LogOut, Menu
+  Users, FileText, Bell, Settings, LogOut, Menu, Globe, Layout
 } from 'lucide-react';
 
 const navItems = [
   { name: 'Dashboard', icon: Home, path: '/dashboard' },
   { name: 'Products', icon: Package, path: '/dashboard/products' },
-  { name: 'Incoming Stock', icon: ArrowDownRight, path: '/dashboard/incoming' },
-  { name: 'Outgoing Stock', icon: ArrowUpRight, path: '/dashboard/outgoing' },
+  { name: 'Store Layout', icon: Layout, path: '/dashboard/store-layout' },
   { name: 'Suppliers', icon: Users, path: '/dashboard/suppliers' },
   { name: 'Reports', icon: FileText, path: '/dashboard/reports' },
   { name: 'Notifications', icon: Bell, path: '/dashboard/notifications' },
