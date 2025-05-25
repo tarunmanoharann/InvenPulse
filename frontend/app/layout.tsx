@@ -20,6 +20,7 @@ export default function RootLayout({
 }) {
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith('/dashboard');
+  const isPreview = pathname?.startsWith('/preview');
 
   return (
     <html lang="en">
@@ -36,7 +37,7 @@ export default function RootLayout({
             }}
           />
           <div className="min-h-screen bg-gray-100 dark:bg-gray-900 flex flex-col">
-            {!isDashboard && <Header />}
+            {!isDashboard && !isPreview && <Header />}
             <main className="flex-grow">
               <Suspense fallback={<Loading />}>
                 {children}

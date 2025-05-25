@@ -9,7 +9,7 @@ export default function DashboardPage() {
       <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
       
       {/* Overview Cards */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         <OverviewCard 
           title="Total Products" 
           value="145" 
@@ -24,21 +24,6 @@ export default function DashboardPage() {
           trend="+2" 
           trendDirection="down"
           variant="warning"
-        />
-        <OverviewCard 
-          title="Incoming Stock" 
-          value="28" 
-          icon="arrow-down-right" 
-          trend="+12" 
-          trendDirection="up" 
-          variant="success"
-        />
-        <OverviewCard 
-          title="Outgoing Orders" 
-          value="54" 
-          icon="arrow-up-right" 
-          trend="+8%" 
-          trendDirection="up" 
         />
       </div>
       

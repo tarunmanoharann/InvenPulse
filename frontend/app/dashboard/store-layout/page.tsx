@@ -1,46 +1,28 @@
 'use client';
 
 import { useState } from 'react';
-import { Image, Save } from 'lucide-react';
+import { Save } from 'lucide-react';
 import Link from 'next/link';
 
 interface StoreSettings {
   storeName: string;
-  heroSection: {
-    heading: string;
-    subheading: string;
-    backgroundImage: string;
-  };
   productsSection: {
     heading: string;
     columnsCount: number;
     showPrices: boolean;
     showDescriptions: boolean;
   };
-  colors: {
-    primary: string;
-    accent: string;
-  };
 }
 
 export default function StoreLayoutPage() {
   const [settings, setSettings] = useState<StoreSettings>({
     storeName: 'Your Store',
-    heroSection: {
-      heading: 'Welcome to Our Store',
-      subheading: 'Discover our amazing products',
-      backgroundImage: '/hero-bg.jpg',
-    },
     productsSection: {
       heading: 'Our Products',
       columnsCount: 3,
       showPrices: true,
       showDescriptions: true,
-    },
-    colors: {
-      primary: '#3B82F6',
-      accent: '#1D4ED8',
-    },
+    }
   });
 
   const handleSettingChange = (section: keyof StoreSettings, field: string, value: any) => {
@@ -80,10 +62,10 @@ export default function StoreLayoutPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Store Basics */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Store Basics</h2>
+          <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Store Settings</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -98,82 +80,7 @@ export default function StoreLayoutPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Primary Color
-              </label>
-              <input
-                type="color"
-                value={settings.colors.primary}
-                onChange={(e) => handleSettingChange('colors', 'primary', e.target.value)}
-                className="w-full h-10 p-1 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Accent Color
-              </label>
-              <input
-                type="color"
-                value={settings.colors.accent}
-                onChange={(e) => handleSettingChange('colors', 'accent', e.target.value)}
-                className="w-full h-10 p-1 rounded-md"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Hero Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Hero Section</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Heading
-              </label>
-              <input
-                type="text"
-                value={settings.heroSection.heading}
-                onChange={(e) => handleSettingChange('heroSection', 'heading', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Subheading
-              </label>
-              <input
-                type="text"
-                value={settings.heroSection.subheading}
-                onChange={(e) => handleSettingChange('heroSection', 'subheading', e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Background Image
-              </label>
-              <div className="flex items-center gap-2">
-                <input
-                  type="text"
-                  value={settings.heroSection.backgroundImage}
-                  onChange={(e) => handleSettingChange('heroSection', 'backgroundImage', e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-300 rounded-md"
-                  placeholder="Image URL"
-                />
-                <button className="p-2 border border-gray-300 rounded-md">
-                  <Image size={20} />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Products Section */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
-          <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Products Display</h2>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Section Heading
+                Products Section Heading
               </label>
               <input
                 type="text"
@@ -196,7 +103,7 @@ export default function StoreLayoutPage() {
                 <option value={4}>4 Products</option>
               </select>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="space-y-2">
               <label className="flex items-center gap-2">
                 <input
                   type="checkbox"

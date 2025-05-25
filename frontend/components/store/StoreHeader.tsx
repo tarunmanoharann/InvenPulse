@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, Search, ShoppingCart } from 'lucide-react';
+import { Menu, ShoppingCart } from 'lucide-react';
 
 interface StoreHeaderProps {
   storeName: string;
@@ -29,19 +29,10 @@ export default function StoreHeader({ storeName }: StoreHeaderProps) {
             <a href="#products" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
               Products
             </a>
-            <a href="#about" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-              About
-            </a>
-            <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-              Contact
-            </a>
           </div>
 
-          {/* Search and Cart */}
+          {/* Cart */}
           <div className="flex items-center space-x-4">
-            <button className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
-              <Search size={20} />
-            </button>
             <button className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
               <ShoppingCart size={20} />
             </button>
@@ -72,20 +63,6 @@ export default function StoreHeader({ storeName }: StoreHeaderProps) {
                 onClick={() => setIsMenuOpen(false)}
               >
                 Products
-              </a>
-              <a
-                href="#about"
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </a>
-              <a
-                href="#contact"
-                className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contact
               </a>
             </div>
           </div>
