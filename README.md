@@ -10,22 +10,6 @@ An advanced inventory management system providing Demand Forecasting, Sentiment 
 - [Getting Started](#getting-started)
 - [Configuration](#configuration)
 
-## ✨ Features
-
-### 1. Demand Forecasting
-- Predict future demand based on historical data
-- Optimize inventory levels automatically
-- Make data-driven stocking decisions
-
-### 2. Sentiment Analysis
-- Analyze customer reviews and feedback
-- Understand product sentiment trends
-- Make informed product decisions
-
-### 3. Fraud Detection
-- Real-time transaction monitoring
-- Automated fraud prevention
-- Secure business operations
 
 ## 🛠️ Tech Stack
 
