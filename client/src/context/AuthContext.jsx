@@ -37,7 +37,10 @@ export function AuthProvider({ children }) {
     
     try {
       const response = await authAPI.login({ username, password });
-      const { token, user: userData } = response.data;
+      // Make sure we're correctly extracting the data from the response
+      const { token, id, username: userName, email, roles } = response.data;
+      
+      const userData = { id, username: userName, email, roles };
       
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
@@ -45,6 +48,7 @@ export function AuthProvider({ children }) {
       setUser(userData);
       return true;
     } catch (err) {
+      console.error('Login error:', err);
       setError(err.response?.data?.message || 'Login failed');
       return false;
     } finally {

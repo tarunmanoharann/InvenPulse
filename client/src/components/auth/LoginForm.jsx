@@ -17,7 +17,9 @@ export default function LoginForm() {
     try {
       const success = await login(username, password);
       if (success) {
-        navigate('/dashboard');
+        console.log('Login successful, redirecting to dashboard');
+        // Force a hard navigation to ensure proper routing
+        window.location.href = '/dashboard';
       }
     } finally {
       setIsSubmitting(false);
