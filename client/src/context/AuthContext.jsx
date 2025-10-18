@@ -16,6 +16,12 @@ export function AuthProvider({ children }) {
     if (token && userData) {
       try {
         setUser(JSON.parse(userData));
+        // Verify token validity with backend
+        authAPI.getCurrentUser()
+          .catch(() => {
+            // If token is invalid, log out
+            logout();
+          });
       } catch (err) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
@@ -31,11 +37,9 @@ export function AuthProvider({ children }) {
     
     try {
       const response = await authAPI.login({ username, password });
-      const { accessToken, id, username: userName, email, roles } = response.data;
+      const { token, user: userData } = response.data;
       
-      const userData = { id, username: userName, email, roles };
-      
-      localStorage.setItem('token', accessToken);
+      localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
       
       setUser(userData);
@@ -53,7 +57,14 @@ export function AuthProvider({ children }) {
     setError(null);
     
     try {
-      await authAPI.register({ username, email, password });
+      const response = await authAPI.register({ username, email, password });
+      // Auto-login after successful registration
+      const { token, user: userData } = response.data;
+      
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userData));
+      
+      setUser(userData);
       return true;
     } catch (err) {
       setError(err.response?.data?.message || 'Registration failed');

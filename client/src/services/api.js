@@ -41,8 +41,9 @@ api.interceptors.response.use(
 
 // Auth API
 export const authAPI = {
-  login: (credentials) => api.post('/auth/signin', credentials),
-  register: (userData) => api.post('/auth/signup', userData),
+  login: (credentials) => api.post('/auth/login', credentials),
+  register: (userData) => api.post('/auth/register', userData),
+  getCurrentUser: () => api.get('/auth/me'),
 };
 
 // Products API
@@ -84,9 +85,6 @@ export const stockMovementsAPI = {
   getAll: () => api.get('/stock-movements'),
   getById: (id) => api.get(`/stock-movements/${id}`),
   getByProduct: (productId) => api.get(`/stock-movements/product/${productId}`),
-  getByDateRange: (startDate, endDate) => 
-    api.get(`/stock-movements/date-range?startDate=${startDate}&endDate=${endDate}`),
-  getByType: (type) => api.get(`/stock-movements/type/${type}`),
   create: (movement) => api.post('/stock-movements', movement),
 };
 

@@ -1,0 +1,60 @@
+# Node modules
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+bun.lockb
+
+# Build and distribution
+dist/
+build/
+out/
+coverage/
+
+# Environment variables
+.env
+.env.*
+!.env.example   # Keep example env file if you use it
+
+# Databases and local storage
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+test.db
+test.db-journal
+
+# Logs
+logs/
+*.log
+*.log.*
+log.txt
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE / Editor settings
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Tests
+.env.test
+jest-test-results.json
+coverage-final.json
+
