@@ -1,39 +1,107 @@
-# InvenPulse - Intelligent Inventory Management 🚀
-An advanced inventory management system providing Demand Forecasting, Sentiment Analysis, and Fraud Detection capabilities using Gradio API clients.
+# InvenPulse - Inventory Management System 🚀
+A comprehensive inventory management system with modern UI/UX and robust features for efficient stock control and business operations.
 
 ## 📋 Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Screenshots](#screenshots)
+- [Project Structure](#project-structure)
 - [Installation](#installation)
 - [Getting Started](#getting-started)
-- [Configuration](#configuration)
+- [Security](#security)
+- [License](#license)
+- [Contributors](#contributors)
+
+## ✨ Features
+- **Authentication & Authorization** with role-based access control
+- **Interactive Dashboard** with analytics and insights
+- **Products Management** with comprehensive CRUD operations
+- **Categories Management** with hierarchical structure
+- **Suppliers Management** with performance metrics
+- **Reporting** with customizable exports
 
 ## 🛠️ Tech Stack
 - **Frontend:**
-  - NextJs
-  - TypeScript
-  - ShadeCN
-  - TailwindCSS
+  - React 18+ with Vite
+  - Redux Toolkit for state management
+  - Tailwind CSS for styling
+  - shadcn/ui for UI components
+  - React Router v6 for routing
+  - React Hook Form with Zod validation
+  - Recharts for data visualization
 - **Backend:**
-  - Node.js/Express
-  - MongoDB
-  - Mongoose ODM
-- **Database:**
-  - MongoDB Atlas (Cloud) or Local MongoDB
+  - Spring Boot 3.x
+  - MySQL 8.0+ database
+  - Spring Data JPA for ORM
+  - Spring Security with JWT
+  - Swagger/OpenAPI for documentation
+- **Security:**
+  - JWT Authentication
+  - Role-Based Access Control (RBAC)
+  - Password encryption with BCrypt
+
+## 🏗️ Project Structure
+
+### Frontend Structure
+```
+client/
+├── src/
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Sidebar.jsx
+│   │   │   ├── Header.jsx
+│   │   │   └── Layout.jsx
+│   │   ├── dashboard/
+│   │   ├── products/
+│   │   ├── categories/
+│   │   ├── suppliers/
+│   │   ├── reports/
+│   │   └── common/
+│   ├── pages/
+│   │   ├── Login.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Products.jsx
+│   │   ├── Categories.jsx
+│   │   ├── Suppliers.jsx
+│   │   └── Reports.jsx
+│   ├── store/
+│   │   ├── store.js
+│   │   └── slices/
+│   ├── services/
+│   ├── utils/
+│   ├── hooks/
+│   ├── App.jsx
+│   └── main.jsx
+```
+
+### Backend Structure
+```
+invenpulse-backend/
+├── src/main/java/com/invenpulse/
+│   ├── config/
+│   ├── controller/
+│   ├── model/
+│   ├── repository/
+│   ├── service/
+│   ├── dto/
+│   ├── security/
+│   ├── exception/
+│   └── InvenpulseApplication.java
+```
 
 ## 💻 Installation
 
 ### Prerequisites
-- Node.js (version 16 or higher)
+- Node.js (version 18 or higher)
 - npm or yarn
-- MongoDB (local installation) or MongoDB Atlas account
+- Java 17 or higher
+- MySQL 8.0+
+- Maven or Gradle
 
 ### Frontend Setup
 1. Clone the repository
 ```bash
 git clone https://github.com/yourusername/InvenPulse.git
-cd InvenPulse/frontend
+cd InvenPulse/client
 ```
 
 2. Install dependencies
@@ -43,178 +111,56 @@ npm install
 yarn install
 ```
 
-3. Install TailwindCSS and its dependencies
+3. Start the development server
 ```bash
-npm install -D tailwindcss postcss autoprefixer
+npm run dev
 # or
-yarn add -D tailwindcss postcss autoprefixer
-```
-
-4. Initialize TailwindCSS
-```bash
-npx tailwindcss init -p
+yarn dev
 ```
 
 ### Backend Setup
 1. Navigate to the backend directory
 ```bash
-cd ../backend
+cd ../invenpulse-backend
 ```
 
-2. Install Node.js dependencies
+2. Build the project
 ```bash
-npm install
-# or
-yarn install
+# If using Maven
+mvn clean install
+
+# If using Gradle
+gradle build
 ```
 
-3. Install required backend packages
+3. Run the application
 ```bash
-npm install express mongoose cors dotenv helmet morgan
-npm install -D nodemon
-# or
-yarn add express mongoose cors dotenv helmet morgan
-yarn add -D nodemon
-```
+# If using Maven
+mvn spring-boot:run
 
-### Database Setup
-
-#### Option 1: MongoDB Atlas (Cloud)
-1. Create a free account at [MongoDB Atlas](https://www.mongodb.com/atlas)
-2. Create a new cluster
-3. Get your connection string
-4. Add your IP address to the whitelist
-
-#### Option 2: Local MongoDB
-1. Install MongoDB Community Edition from [MongoDB Download Center](https://www.mongodb.com/try/download/community)
-2. Start MongoDB service:
-```bash
-# Windows
-net start MongoDB
-
-# macOS (with Homebrew)
-brew services start mongodb-community
-
-# Linux
-sudo systemctl start mongod
+# If using Gradle
+gradle bootRun
 ```
 
 ## 🚀 Getting Started
+1. Start the backend server
+2. Start the frontend development server
+3. Access the application at `http://localhost:5173`
+4. Login with default credentials:
+   - Admin: admin@invenpulse.com / admin123
+   - Manager: manager@invenpulse.com / manager123
+   - User: user@invenpulse.com / user123
 
-1. Start MongoDB (if using local installation):
-```bash
-mongod
-```
+## 🔒 Security
+- JWT-based authentication
+- Role-based access control with three roles:
+  - **ADMIN**: Full access to all features
+  - **MANAGER**: Access to manage products, categories, and view reports
+  - **USER**: Limited access to view products and basic operations
 
-2. Start the backend server:
-```bash
-cd backend
-npm run dev
-# or
-yarn dev
-```
+## 📝 License
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-3. Start the frontend development server:
-```bash
-cd frontend
-npm run dev
-# or
-yarn dev
-```
-
-4. Open your browser and visit:
-```
-http://localhost:3000
-```
-
-## ⚙️ Configuration
-
-### Environment Variables
-
-#### Frontend (.env)
-Create a `.env` file in the frontend directory:
-```env
-VITE_API_URL=http://localhost:5000/api
-VITE_GRADIO_API_KEY=your_gradio_api_key
-```
-
-#### Backend (.env)
-Create a `.env` file in the backend directory:
-```env
-# Server Configuration
-PORT=5000
-NODE_ENV=development
-
-# MongoDB Configuration
-# For MongoDB Atlas:
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/invenpulse?retryWrites=true&w=majority
-
-# For Local MongoDB:
-# MONGODB_URI=mongodb://localhost:27017/invenpulse
-
-# JWT Configuration
-JWT_SECRET=your_jwt_secret_key_here
-JWT_EXPIRES_IN=7d
-
-# API Keys
-GRADIO_API_KEY=your_gradio_api_key
-```
-
-### TailwindCSS Configuration
-Ensure your `tailwind.config.js` includes:
-```javascript
-module.exports = {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-```
-
-### Backend Package.json Scripts
-Add these scripts to your backend `package.json`:
-```json
-{
-  "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "test": "jest"
-  }
-}
-```
-
-## 📁 Project Structure
-```
-InvenPulse/
-├── frontend/
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── ...
-├── backend/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
-│   ├── controllers/
-│   ├── config/
-│   ├── server.js
-│   ├── package.json
-│   └── ...
-└── README.md
-```
-
-
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🤝 Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+## 👥 Contributors
+- Your Name - Initial work
 
